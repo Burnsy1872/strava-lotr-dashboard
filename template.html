@@ -10,8 +10,6 @@
             color: #f4e8d0;
             background-image: url('middleearth.jpeg');
             background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             background-attachment: fixed;
         }
         .overlay { background-color: rgba(0,0,0,0.5); min-height: 100vh; padding: 40px 20px; }
@@ -27,4 +25,83 @@
         .stat-number { font-family: 'Cinzel', serif; font-size: 2.5em; font-weight: bold; color: #5c3a21; margin: 10px 0; }
         .stat-label { font-style: italic; font-size: 1.1em; }
         .log {
-            background-color: rgba(240,225,200,0.95); color: #3b2b1a; margin-top: 4
+            background-color: rgba(240,225,200,0.95); color: #3b2b1a; margin-top: 40px; padding: 30px;
+            border-radius: 8px; text-align: left; border: 2px solid #8b6b4a; box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="container">
+            <h1>The Red Book</h1>
+            <h1>Middle-Earth Explorer</h1>
+            <h2>~ The Complete Odyssey ~</h2>
+
+                        <div class="stats-grid">
+                <!-- RUNNING CARDS -->
+                <div class="card">
+                    <div class="stat-label">Running Distance</div>
+                    <div class="stat-number">{{RUN_DIST}} km</div>
+                    <div class="stat-label">Leagues on Foot</div>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Running Ascents</div>
+                    <div class="stat-number">{{RUN_ELEV}} m</div>
+                    <div class="stat-label">Mountains Climbed</div>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Running Time</div>
+                    <div class="stat-number">{{RUN_TIME}} h</div>
+                    <div class="stat-label">Time on the Road</div>
+                </div>
+
+                <!-- CYCLING CARDS -->
+                <div class="card">
+                    <div class="stat-label">Cycling Distance</div>
+                    <div class="stat-number">{{RIDE_DIST}} km</div>
+                    <div class="stat-label">Leagues on Wheels</div>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Cycling Ascents</div>
+                    <div class="stat-number">{{RIDE_ELEV}} m</div>
+                    <div class="stat-label">Mountains Climbed</div>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Cycling Time</div>
+                    <div class="stat-number">{{RIDE_TIME}} h</div>
+                    <div class="stat-label">Time in the Saddle</div>
+                </div>
+            </div>
+
+            <!-- WEEKLY STATS -->
+            <h2 style="margin-top: 50px;">~ Weekly Quests (Last 7 Days) ~</h2>
+            <div class="stats-grid">
+                <div class="card">
+                    <div class="stat-label">Weekly Run</div>
+                    <div class="stat-number">{{WEEKLY_RUN_DIST}} km</div>
+                    <div class="stat-label">Leagues on Foot</div>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Weekly Run Ascent</div>
+                    <div class="stat-number">{{WEEKLY_RUN_ELEV}} m</div>
+                    <div class="stat-label">Mountains Climbed</div>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Weekly Ride</div>
+                    <div class="stat-number">{{WEEKLY_RIDE_DIST}} km</div>
+                    <div class="stat-label">Leagues on Wheels</div>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Weekly Ride Ascent</div>
+                    <div class="stat-number">{{WEEKLY_RIDE_ELEV}} m</div>
+                    <div class="stat-label">Mountains Climbed</div>
+                </div>
+            </div>
+            <div class="log">
+                <h2 style="text-align:center; color:#5c3a21;">Recent Journal Entries</h2>
+                {{JOURNAL}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
