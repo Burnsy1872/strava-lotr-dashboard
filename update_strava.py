@@ -1,4 +1,6 @@
-import requests, json, os
+import requests
+import json
+import os
 from datetime import datetime, timedelta
 
 # --- Get secrets from GitHub's secret vault ---
@@ -33,29 +35,28 @@ ride_elev = int(round(stats['all_ride_totals']['elevation_gain']))
 ride_time = round(stats['all_ride_totals']['moving_time'] / 3600, 1)
 
 # --- 2. Calculate Weekly Data (Last 7 Days) ---
-# We fetch the last 30 activities to look for recent ones
+# FIXED: Query by date instead of just "last 30 activities" to prevent missing runs
+since_timestamp = int((datetime.now() - timedelta(days=7)).timestamp())
 acts = requests.get(
-    f'https://www.strava.com/api/v3/athletes/{athlete_id}/activities?per_page=30',
+    f'https://www.strava.com/api/v3/athletes/{athlete_id}/activities?per_page=200&after={since_timestamp}',
     headers=headers).json()
 
-seven_days_ago = datetime.now() - timedelta(days=7)
 weekly_run_dist = 0
 weekly_run_elev = 0
 weekly_ride_dist = 0
 weekly_ride_elev = 0
 
 for a in acts:
-    act_date = datetime.strptime(a['start_date_local'].split('T')[0], '%Y-%m-%d')
-    if act_date >= seven_days_ago:
-        dist_km = a['distance'] / 1000
-        elev_m = a.get('total_elevation_gain', 0)
-        
-        if a['type'] == 'Run':
-            weekly_run_dist += dist_km
-            weekly_run_elev += elev_m
-        elif a['type'] in ['Ride', 'VirtualRide']:
-            weekly_ride_dist += dist_km
-            weekly_ride_elev += elev_m
+    dist_km = a['distance'] / 1000
+    elev_m = a.get('total_elevation_gain', 0)
+    
+    # FIXED: Added 'VirtualRun' so Zwift/treadmill runs count toward the weekly total
+    if a['type'] in ['Run', 'VirtualRun']:
+        weekly_run_dist += dist_km
+        weekly_run_elev += elev_m
+    elif a['type'] in ['Ride', 'VirtualRide']:
+        weekly_ride_dist += dist_km
+        weekly_ride_elev += elev_m
 
 weekly_run_dist = round(weekly_run_dist, 1)
 weekly_run_elev = int(round(weekly_run_elev))
@@ -71,8 +72,8 @@ for a in acts[:5]: # Only look at the first 5 for the journal
     act_type = a['type']
     name = a['name']
     
-    # Add thematic flavor based on the activity type
-    if act_type == 'Run':
+    # FIXED: Added 'VirtualRun' here so the journal gets the correct "on foot" text
+    if act_type in ['Run', 'VirtualRun']:
         flavor = f"A journey of {km} leagues on foot, ascending {elev}m of rugged terrain."
     elif act_type in ['Ride', 'VirtualRide']:
         flavor = f"A ride across the lands, traveling {km} leagues on wheels and conquering {elev}m of elevation."
