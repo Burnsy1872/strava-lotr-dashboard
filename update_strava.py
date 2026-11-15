@@ -94,6 +94,10 @@ def quest_status(pct):
 run_pct  = round(min(100, monthly_run_dist  / RUN_GOAL  * 100))
 ride_pct = round(min(100, monthly_ride_dist / RIDE_GOAL * 100))
 
+# Gold gradient if 100%, otherwise standard green/gold gradient
+run_color = "linear-gradient(90deg, #d4af37, #f9e79f)" if run_pct >= 100 else "linear-gradient(90deg, #7a9e5a, #c9a23a)"
+ride_color = "linear-gradient(90deg, #d4af37, #f9e79f)" if ride_pct >= 100 else "linear-gradient(90deg, #7a9e5a, #c9a23a)"
+
 # --- 4. Journal (5 most recent, regardless of week/month) ---
 recent = requests.get(
     f'https://www.strava.com/api/v3/athletes/{athlete_id}/activities?per_page=5',
@@ -143,12 +147,14 @@ html = html.replace('{{RUN_QUEST_TITLE}}', RUN_QUEST_TITLE)
 html = html.replace('{{RUN_QUEST_CURRENT}}', str(monthly_run_dist))
 html = html.replace('{{RUN_QUEST_GOAL}}', str(RUN_GOAL))
 html = html.replace('{{RUN_QUEST_PCT}}', str(run_pct))
+html = html.replace('{{RUN_QUEST_COLOR}}', run_color)      # <-- Add this
 html = html.replace('{{RUN_QUEST_STATUS}}', quest_status(run_pct))
 
 html = html.replace('{{RIDE_QUEST_TITLE}}', RIDE_QUEST_TITLE)
 html = html.replace('{{RIDE_QUEST_CURRENT}}', str(monthly_ride_dist))
 html = html.replace('{{RIDE_QUEST_GOAL}}', str(RIDE_GOAL))
 html = html.replace('{{RIDE_QUEST_PCT}}', str(ride_pct))
+html = html.replace('{{RIDE_QUEST_COLOR}}', ride_color)    # <-- Add this
 html = html.replace('{{RIDE_QUEST_STATUS}}', quest_status(ride_pct))
 
 # Journal
