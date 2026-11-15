@@ -62,17 +62,28 @@ weekly_run_elev = int(round(weekly_run_elev))
 weekly_ride_dist = round(weekly_ride_dist, 1)
 weekly_ride_elev = int(round(weekly_ride_elev))
 
-# --- 3. Journal entries (using the first 5 activities from our list) ---
+# --- 3. Journal entries from recent activities (Thematic Edition!) ---
 lines = []
 for a in acts[:5]: # Only look at the first 5 for the journal
     date = datetime.strptime(a['start_date_local'].split('T')[0], '%Y-%m-%d').strftime('%b %d')
     km = round(a['distance'] / 1000, 1)
     elev = int(round(a.get('total_elevation_gain', 0)))
-    entry = f"<p><strong>{date}:</strong> {a['name']} — {km} km"
-    if elev > 0:
-        entry += f", {elev} m climbed"
-    entry += ".</p>"
+    act_type = a['type']
+    name = a['name']
+    
+    # Add thematic flavor based on the activity type
+    if act_type == 'Run':
+        flavor = f"A journey of {km} leagues on foot, ascending {elev}m of rugged terrain."
+    elif act_type in ['Ride', 'VirtualRide']:
+        flavor = f"A ride across the lands, traveling {km} leagues on wheels and conquering {elev}m of elevation."
+    elif act_type == 'Walk':
+        flavor = f"A steady pace through the shire, covering {km} leagues with {elev}m of gentle ascent."
+    else:
+        flavor = f"An adventure of {km} leagues, gaining {elev}m in elevation."
+        
+    entry = f"<p><strong>{date}:</strong> <em>{name}</em> — {flavor}</p>"
     lines.append(entry)
+
 journal_html = "\n                ".join(lines)
 
 # --- 4. Fill the template and write index.html ---
