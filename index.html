@@ -29,7 +29,14 @@
             background-color: rgba(240,225,200,0.95); color: #3b2b1a; margin-top: 40px; padding: 30px;
             border-radius: 8px; text-align: left; border: 2px solid #8b6b4a; box-shadow: 0 8px 16px rgba(0,0,0,0.6);
         }
-  
+  /* --- Quest Progress Bars --- */
+.quest-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-width: 900px; margin: 20px auto; padding: 0 15px; }
+.quest-card { background: #f4e8d0; color: #3a2e1f; padding: 20px 25px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); flex: 1 1 300px; max-width: 420px; text-align: center; }
+.quest-card h3 { margin: 0 0 6px; font-size: 1.3rem; }
+.quest-sub { margin: 0 0 12px; font-size: 0.95rem; }
+.progress-track { background: #d8c39a; border: 1px solid #b89b6a; border-radius: 999px; height: 18px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #7a9e5a, #c9a23a); border-radius: 999px; transition: width 0.6s ease; }
+.quest-status { margin: 10px 0 0; font-style: italic; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -99,12 +106,27 @@
                     <div class="stat-label">Mountains Climbed</div>
                 </div>
             </div>
+            <div class="quest-grid">
+    <div class="quest-card">
+        <h3>The Road to Rivendell</h3>
+        <p class="quest-sub">This moon: 35.3 / 100 leagues</p>
+        <div class="progress-track"><div class="progress-fill" style="width: 35%;"></div></div>
+        <p class="quest-status">A good start. The road ahead is long.</p>
+    </div>
+    <div class="quest-card">
+        <h3>The Ride to Rohan</h3>
+        <p class="quest-sub">This moon: 102.2 / 200 leagues</p>
+        <div class="progress-track"><div class="progress-fill" style="width: 51%;"></div></div>
+        <p class="quest-status">Halfway there, traveler. Keep moving.</p>
+    </div>
+</div>
             <div class="log">
                 <h2 style="text-align:center; color:#5c3a21;">Recent Journal Entries</h2>
-                <p><strong>Nov 13:</strong> <em>Zwift - Eggum Coastal in Video</em> — A ride across the lands, traveling 16.1 leagues on wheels and conquering 165m of elevation.</p>
-                <p><strong>Nov 13:</strong> <em>Zwift - Two Bridges Loop in Watopia</em> — A ride across the lands, traveling 7.2 leagues on wheels and conquering 80m of elevation.</p>
-                <p><strong>Nov 14:</strong> <em>Afternoon Run</em> — A journey of 5.0 leagues on foot, ascending 34m of rugged terrain.</p>
                 <p><strong>Nov 15:</strong> <em>Zwift - Group Run: Group Run 10k  (D)</em> — A journey of 10.0 leagues on foot, ascending 0m of rugged terrain.</p>
+                <p><strong>Nov 14:</strong> <em>Afternoon Run</em> — A journey of 5.0 leagues on foot, ascending 34m of rugged terrain.</p>
+                <p><strong>Nov 13:</strong> <em>Zwift - Two Bridges Loop in Watopia</em> — A ride across the lands, traveling 7.2 leagues on wheels and conquering 80m of elevation.</p>
+                <p><strong>Nov 13:</strong> <em>Zwift - Eggum Coastal in Video</em> — A ride across the lands, traveling 16.1 leagues on wheels and conquering 165m of elevation.</p>
+                <p><strong>Nov 08:</strong> <em>Lunch Ride</em> — A ride across the lands, traveling 11.4 leagues on wheels and conquering 190m of elevation.</p>
             </div>
         </div>
     </div>
