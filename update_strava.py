@@ -1,7 +1,12 @@
 import requests
-import json
 import os
 from datetime import datetime, timedelta
+
+# --- Quest Settings (change goals/titles here) ---
+RUN_GOAL = 100   # km this month
+RIDE_GOAL = 200  # km this month
+RUN_QUEST_TITLE = "The Road to Rivendell"
+RIDE_QUEST_TITLE = "The Ride to Rohan"
 
 # --- Get secrets from GitHub's secret vault ---
 CLIENT_ID = os.environ.get('CLIENT_ID')
@@ -34,45 +39,74 @@ ride_dist = round(stats['all_ride_totals']['distance'] / 1000, 1)
 ride_elev = int(round(stats['all_ride_totals']['elevation_gain']))
 ride_time = round(stats['all_ride_totals']['moving_time'] / 3600, 1)
 
-# --- 2. Calculate Weekly Data (Last 7 Days) ---
-# FIXED: Query by date instead of just "last 30 activities" to prevent missing runs
-since_timestamp = int((datetime.now() - timedelta(days=7)).timestamp())
+# --- 2. Fetch activities for Weekly + Monthly (one call, wider window) ---
+now = datetime.now()
+seven_days_ago = now - timedelta(days=7)
+start_of_month = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+earliest_ts = int(min(seven_days_ago, start_of_month).timestamp())
+
 acts = requests.get(
-    f'https://www.strava.com/api/v3/athletes/{athlete_id}/activities?per_page=200&after={since_timestamp}',
+    f'https://www.strava.com/api/v3/athletes/{athlete_id}/activities'
+    f'?per_page=200&after={earliest_ts}',
     headers=headers).json()
 
-weekly_run_dist = 0
-weekly_run_elev = 0
-weekly_ride_dist = 0
-weekly_ride_elev = 0
+weekly_run_dist = weekly_run_elev = 0
+weekly_ride_dist = weekly_ride_elev = 0
+monthly_run_dist = 0
+monthly_ride_dist = 0
 
 for a in acts:
+    act_date = datetime.strptime(a['start_date_local'].split('T')[0], '%Y-%m-%d')
     dist_km = a['distance'] / 1000
     elev_m = a.get('total_elevation_gain', 0)
-    
-    # FIXED: Added 'VirtualRun' so Zwift/treadmill runs count toward the weekly total
-    if a['type'] in ['Run', 'VirtualRun']:
-        weekly_run_dist += dist_km
-        weekly_run_elev += elev_m
-    elif a['type'] in ['Ride', 'VirtualRide']:
-        weekly_ride_dist += dist_km
-        weekly_ride_elev += elev_m
+
+    # Weekly (last 7 days)
+    if act_date >= seven_days_ago:
+        if a['type'] in ['Run', 'VirtualRun']:
+            weekly_run_dist += dist_km
+            weekly_run_elev += elev_m
+        elif a['type'] in ['Ride', 'VirtualRide']:
+            weekly_ride_dist += dist_km
+            weekly_ride_elev += elev_m
+
+    # Monthly (since 1st of this month)
+    if act_date >= start_of_month:
+        if a['type'] in ['Run', 'VirtualRun']:
+            monthly_run_dist += dist_km
+        elif a['type'] in ['Ride', 'VirtualRide']:
+            monthly_ride_dist += dist_km
 
 weekly_run_dist = round(weekly_run_dist, 1)
 weekly_run_elev = int(round(weekly_run_elev))
 weekly_ride_dist = round(weekly_ride_dist, 1)
 weekly_ride_elev = int(round(weekly_ride_elev))
+monthly_run_dist = round(monthly_run_dist, 1)
+monthly_ride_dist = round(monthly_ride_dist, 1)
 
-# --- 3. Journal entries from recent activities (Thematic Edition!) ---
+# --- 3. Quest percentages + flavour text ---
+def quest_status(pct):
+    if pct >= 100: return "Quest Complete! The realm is saved. ⚔️"
+    if pct >= 75:  return "The final stretch! The end is in sight."
+    if pct >= 50:  return "Halfway there, traveler. Keep moving."
+    if pct >= 25:  return "A good start. The road ahead is long."
+    return "The journey begins. One step at a time."
+
+run_pct  = round(min(100, monthly_run_dist  / RUN_GOAL  * 100))
+ride_pct = round(min(100, monthly_ride_dist / RIDE_GOAL * 100))
+
+# --- 4. Journal (5 most recent, regardless of week/month) ---
+recent = requests.get(
+    f'https://www.strava.com/api/v3/athletes/{athlete_id}/activities?per_page=5',
+    headers=headers).json()
+
 lines = []
-for a in acts[:5]: # Only look at the first 5 for the journal
+for a in recent[:5]:
     date = datetime.strptime(a['start_date_local'].split('T')[0], '%Y-%m-%d').strftime('%b %d')
     km = round(a['distance'] / 1000, 1)
     elev = int(round(a.get('total_elevation_gain', 0)))
     act_type = a['type']
     name = a['name']
-    
-    # FIXED: Added 'VirtualRun' here so the journal gets the correct "on foot" text
+
     if act_type in ['Run', 'VirtualRun']:
         flavor = f"A journey of {km} leagues on foot, ascending {elev}m of rugged terrain."
     elif act_type in ['Ride', 'VirtualRide']:
@@ -81,17 +115,16 @@ for a in acts[:5]: # Only look at the first 5 for the journal
         flavor = f"A steady pace through the shire, covering {km} leagues with {elev}m of gentle ascent."
     else:
         flavor = f"An adventure of {km} leagues, gaining {elev}m in elevation."
-        
-    entry = f"<p><strong>{date}:</strong> <em>{name}</em> — {flavor}</p>"
-    lines.append(entry)
+
+    lines.append(f"<p><strong>{date}:</strong> <em>{name}</em> — {flavor}</p>")
 
 journal_html = "\n                ".join(lines)
 
-# --- 4. Fill the template and write index.html ---
+# --- 5. Fill the template ---
 with open('template.html', encoding='utf-8') as f:
     html = f.read()
 
-# Replace All-Time placeholders
+# All-time
 html = html.replace('{{RUN_DIST}}', str(run_dist))
 html = html.replace('{{RUN_ELEV}}', str(run_elev))
 html = html.replace('{{RUN_TIME}}', str(run_time))
@@ -99,16 +132,29 @@ html = html.replace('{{RIDE_DIST}}', str(ride_dist))
 html = html.replace('{{RIDE_ELEV}}', str(ride_elev))
 html = html.replace('{{RIDE_TIME}}', str(ride_time))
 
-# Replace Weekly placeholders
+# Weekly
 html = html.replace('{{WEEKLY_RUN_DIST}}', str(weekly_run_dist))
 html = html.replace('{{WEEKLY_RUN_ELEV}}', str(weekly_run_elev))
 html = html.replace('{{WEEKLY_RIDE_DIST}}', str(weekly_ride_dist))
 html = html.replace('{{WEEKLY_RIDE_ELEV}}', str(weekly_ride_elev))
 
-# Replace Journal
+# Quests (NEW)
+html = html.replace('{{RUN_QUEST_TITLE}}', RUN_QUEST_TITLE)
+html = html.replace('{{RUN_QUEST_CURRENT}}', str(monthly_run_dist))
+html = html.replace('{{RUN_QUEST_GOAL}}', str(RUN_GOAL))
+html = html.replace('{{RUN_QUEST_PCT}}', str(run_pct))
+html = html.replace('{{RUN_QUEST_STATUS}}', quest_status(run_pct))
+
+html = html.replace('{{RIDE_QUEST_TITLE}}', RIDE_QUEST_TITLE)
+html = html.replace('{{RIDE_QUEST_CURRENT}}', str(monthly_ride_dist))
+html = html.replace('{{RIDE_QUEST_GOAL}}', str(RIDE_GOAL))
+html = html.replace('{{RIDE_QUEST_PCT}}', str(ride_pct))
+html = html.replace('{{RIDE_QUEST_STATUS}}', quest_status(ride_pct))
+
+# Journal
 html = html.replace('{{JOURNAL}}', journal_html)
 
 with open('index.html', 'w', encoding='utf-8') as f:
     f.write(html)
 
-print(f"Success! All-time Run: {run_dist}km | Weekly Run: {weekly_run_dist}km")
+print(f"Success! Weekly Run: {weekly_run_dist}km | Monthly Run: {monthly_run_dist}/{RUN_GOAL}km ({run_pct}%) | Monthly Ride: {monthly_ride_dist}/{RIDE_GOAL}km ({ride_pct}%)")
