@@ -89,12 +89,17 @@ monthly_run_dist = round(monthly_run_dist, 1)
 monthly_ride_dist = round(monthly_ride_dist, 1)
 
 # --- 3. Quest percentages + flavour text ---
-def quest_status(pct):
-    if pct >= 100: return "Quest Complete! The realm is saved. ⚔️"
-    if pct >= 75:  return "The final stretch! The end is in sight."
-    if pct >= 50:  return "Halfway there, traveler. Keep moving."
-    if pct >= 25:  return "A good start. The road ahead is long."
-    return "The journey begins. One step at a time."
+def quest_status(pct, current, goal):
+    remaining = round(goal - current, 1)
+    if pct >= 100:
+        return f"Quest Complete! The realm is saved. ⚔️ You conquered {current} leagues!"
+    if pct >= 75:
+        return f"The final stretch! Only {remaining} leagues left to conquer."
+    if pct >= 50:
+        return f"Past the halfway mark! You have {remaining} leagues remaining on this quest."
+    if pct >= 25:
+        return f"A good start. {remaining} leagues still lie ahead."
+    return f"The journey begins. {remaining} leagues to go until the quest is done."
 
 run_pct  = round(min(100, monthly_run_dist  / RUN_GOAL  * 100))
 ride_pct = round(min(100, monthly_ride_dist / RIDE_GOAL * 100))
@@ -174,14 +179,16 @@ html = html.replace('{{RUN_QUEST_CURRENT}}', str(monthly_run_dist))
 html = html.replace('{{RUN_QUEST_GOAL}}', str(RUN_GOAL))
 html = html.replace('{{RUN_QUEST_PCT}}', str(run_pct))
 html = html.replace('{{RUN_QUEST_COLOR}}', run_color)
-html = html.replace('{{RUN_QUEST_STATUS}}', quest_status(run_pct))
+# UPDATED: Passing current distance and goal to the function
+html = html.replace('{{RUN_QUEST_STATUS}}', quest_status(run_pct, monthly_run_dist, RUN_GOAL))
 
 html = html.replace('{{RIDE_QUEST_TITLE}}', RIDE_QUEST_TITLE)
 html = html.replace('{{RIDE_QUEST_CURRENT}}', str(monthly_ride_dist))
 html = html.replace('{{RIDE_QUEST_GOAL}}', str(RIDE_GOAL))
 html = html.replace('{{RIDE_QUEST_PCT}}', str(ride_pct))
 html = html.replace('{{RIDE_QUEST_COLOR}}', ride_color)
-html = html.replace('{{RIDE_QUEST_STATUS}}', quest_status(ride_pct))
+# UPDATED: Passing current distance and goal to the function
+html = html.replace('{{RIDE_QUEST_STATUS}}', quest_status(ride_pct, monthly_ride_dist, RIDE_GOAL))
 
 # Journal
 html = html.replace('{{JOURNAL}}', journal_html)
