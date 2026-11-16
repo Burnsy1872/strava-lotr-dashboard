@@ -40,11 +40,13 @@ ride_dist = round(stats['all_ride_totals']['distance'] / 1000, 1)
 ride_elev = int(round(stats['all_ride_totals']['elevation_gain']))
 ride_time = round(stats['all_ride_totals']['moving_time'] / 3600, 1)
 
-# --- 2. Fetch activities for Weekly + Monthly (one call, wider window) ---
+# --- 2. Fetch activities for Weekly (Mon-Sun) + Monthly ---
 now = datetime.now()
-seven_days_ago = now - timedelta(days=7)
+# Find the most recent Monday (weekday() returns 0 for Monday, 6 for Sunday)
+days_since_monday = now.weekday()
+start_of_week = (now - timedelta(days=days_since_monday)).replace(hour=0, minute=0, second=0, microsecond=0)
 start_of_month = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-earliest_ts = int(min(seven_days_ago, start_of_month).timestamp())
+earliest_ts = int(min(start_of_week, start_of_month).timestamp())
 
 acts = requests.get(
     f'https://www.strava.com/api/v3/athletes/{athlete_id}/activities'
@@ -63,8 +65,8 @@ for a in acts:
     dist_km = a['distance'] / 1000
     elev_m = a.get('total_elevation_gain', 0)
 
-    # Weekly (last 7 days)
-    if act_date >= seven_days_ago:
+        # Weekly (Monday to Sunday)
+    if act_date >= start_of_week:
         if a['type'] in ['Run', 'VirtualRun']:
             weekly_run_dist += dist_km
             weekly_run_elev += elev_m
