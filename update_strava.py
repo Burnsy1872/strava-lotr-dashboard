@@ -112,7 +112,7 @@ for a in recent[:5]:
     act_type = a['type']
     name = a['name']
 
-        if act_type in ['Run', 'VirtualRun']:
+    if act_type in ['Run', 'VirtualRun']:
         options = [
             f"A journey of {km} leagues on foot, ascending {elev}m of rugged terrain.",
             f"The road goes ever on and on. {km} leagues covered, with {elev}m of elevation conquered.",
@@ -139,7 +139,11 @@ for a in recent[:5]:
         ]
 
     flavor = random.choice(options)
+    
+    # THIS LINE WAS MISSING! It adds the entry to the journal.
+    lines.append(f"<p><strong>{date}:</strong> <em>{name}</em> — {flavor}</p>")
 
+# This must be outside the loop (aligned with 'for')
 journal_html = "\n                ".join(lines)
 
 # --- 5. Fill the template ---
