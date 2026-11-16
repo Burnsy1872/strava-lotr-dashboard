@@ -65,7 +65,7 @@ for a in acts:
     dist_km = a['distance'] / 1000
     elev_m = a.get('total_elevation_gain', 0)
 
-        # Weekly (Monday to Sunday)
+    # Weekly (Monday to Sunday)
     if act_date >= start_of_week:
         if a['type'] in ['Run', 'VirtualRun']:
             weekly_run_dist += dist_km
