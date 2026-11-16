@@ -1,5 +1,6 @@
 import requests
 import os
+import random  # <-- ADD THIS LINE
 from datetime import datetime, timedelta
 
 # --- Quest Settings (change goals/titles here) ---
@@ -111,16 +112,33 @@ for a in recent[:5]:
     act_type = a['type']
     name = a['name']
 
-    if act_type in ['Run', 'VirtualRun']:
-        flavor = f"A journey of {km} leagues on foot, ascending {elev}m of rugged terrain."
+        if act_type in ['Run', 'VirtualRun']:
+        options = [
+            f"A journey of {km} leagues on foot, ascending {elev}m of rugged terrain.",
+            f"The road goes ever on and on. {km} leagues covered, with {elev}m of elevation conquered.",
+            f"A swift stride through the wilds! {km} leagues traveled, scaling {elev}m of mountains.",
+            f"Not all those who wander are lost, but this one covered {km} leagues and climbed {elev}m!"
+        ]
     elif act_type in ['Ride', 'VirtualRide']:
-        flavor = f"A ride across the lands, traveling {km} leagues on wheels and conquering {elev}m of elevation."
+        options = [
+            f"A ride across the lands, traveling {km} leagues on wheels and conquering {elev}m of elevation.",
+            f"Ride out, ride out! {km} leagues crossed on two wheels, ascending {elev}m into the sky.",
+            f"Like a rider of Rohan, you covered {km} leagues and climbed {elev}m of steep terrain.",
+            f"The wind in your face and the road beneath you: {km} leagues ridden, {elev}m climbed."
+        ]
     elif act_type == 'Walk':
-        flavor = f"A steady pace through the shire, covering {km} leagues with {elev}m of gentle ascent."
+        options = [
+            f"A steady pace through the shire, covering {km} leagues with {elev}m of gentle ascent.",
+            f"A quiet stroll through the woods. {km} leagues walked, gaining {elev}m in height.",
+            f"Second breakfast was well earned after this {km} league walk, climbing {elev}m."
+        ]
     else:
-        flavor = f"An adventure of {km} leagues, gaining {elev}m in elevation."
+        options = [
+            f"An adventure of {km} leagues, gaining {elev}m in elevation.",
+            f"A mysterious journey of {km} leagues, scaling {elev}m of unknown lands."
+        ]
 
-    lines.append(f"<p><strong>{date}:</strong> <em>{name}</em> — {flavor}</p>")
+    flavor = random.choice(options)
 
 journal_html = "\n                ".join(lines)
 
