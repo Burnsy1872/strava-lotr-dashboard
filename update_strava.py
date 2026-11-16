@@ -1,6 +1,6 @@
 import requests
 import os
-import random  # <-- ADD THIS LINE
+import random
 from datetime import datetime, timedelta
 
 # --- Quest Settings (change goals/titles here) ---
@@ -51,8 +51,10 @@ acts = requests.get(
     f'?per_page=200&after={earliest_ts}',
     headers=headers).json()
 
-weekly_run_dist = weekly_run_elev = 0
-weekly_ride_dist = weekly_ride_elev = 0
+weekly_run_dist = 0
+weekly_run_elev = 0
+weekly_ride_dist = 0
+weekly_ride_elev = 0
 monthly_run_dist = 0
 monthly_ride_dist = 0
 
@@ -140,10 +142,10 @@ for a in recent[:5]:
 
     flavor = random.choice(options)
     
-    # THIS LINE WAS MISSING! It adds the entry to the journal.
+    # This line adds the entry to the journal
     lines.append(f"<p><strong>{date}:</strong> <em>{name}</em> — {flavor}</p>")
 
-# This must be outside the loop (aligned with 'for')
+# This must be outside the loop
 journal_html = "\n                ".join(lines)
 
 # --- 5. Fill the template ---
@@ -164,19 +166,19 @@ html = html.replace('{{WEEKLY_RUN_ELEV}}', str(weekly_run_elev))
 html = html.replace('{{WEEKLY_RIDE_DIST}}', str(weekly_ride_dist))
 html = html.replace('{{WEEKLY_RIDE_ELEV}}', str(weekly_ride_elev))
 
-# Quests (NEW)
+# Quests
 html = html.replace('{{RUN_QUEST_TITLE}}', RUN_QUEST_TITLE)
 html = html.replace('{{RUN_QUEST_CURRENT}}', str(monthly_run_dist))
 html = html.replace('{{RUN_QUEST_GOAL}}', str(RUN_GOAL))
 html = html.replace('{{RUN_QUEST_PCT}}', str(run_pct))
-html = html.replace('{{RUN_QUEST_COLOR}}', run_color)      # <-- Add this
+html = html.replace('{{RUN_QUEST_COLOR}}', run_color)
 html = html.replace('{{RUN_QUEST_STATUS}}', quest_status(run_pct))
 
 html = html.replace('{{RIDE_QUEST_TITLE}}', RIDE_QUEST_TITLE)
 html = html.replace('{{RIDE_QUEST_CURRENT}}', str(monthly_ride_dist))
 html = html.replace('{{RIDE_QUEST_GOAL}}', str(RIDE_GOAL))
 html = html.replace('{{RIDE_QUEST_PCT}}', str(ride_pct))
-html = html.replace('{{RIDE_QUEST_COLOR}}', ride_color)    # <-- Add this
+html = html.replace('{{RIDE_QUEST_COLOR}}', ride_color)
 html = html.replace('{{RIDE_QUEST_STATUS}}', quest_status(ride_pct))
 
 # Journal
