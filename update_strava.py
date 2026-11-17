@@ -10,7 +10,7 @@ RUN_QUEST_TITLE = "The Road to Rivendell"
 RIDE_QUEST_TITLE = "The Ride to Rohan"
 
 # --- Journey Map Settings ---
-JOURNEY_GOAL = 2000  # Total combined km to reach Mount Doom
+JOURNEY_GOAL = 8000  # Total combined km to reach Mount Doom
 
 # --- Get secrets from GitHub's secret vault ---
 CLIENT_ID = os.environ.get('CLIENT_ID')
