@@ -155,7 +155,27 @@ for a in recent[:5]:
 # This must be outside the loop
 journal_html = "\n                ".join(lines)
 
-# --- 5. Fill the template ---
+# --- 5. Quote of the Day ---
+quotes = [
+    "\"Not all those who wander are lost.\" - J.R.R. Tolkien",
+    "\"The road goes ever on and on.\" - Bilbo Baggins",
+    "\"There's some good in this world, Mr. Frodo, and it's worth fighting for.\" - Samwise Gamgee",
+    "\"I will not say: do not weep; for not all tears are an evil.\" - Gandalf",
+    "\"A wizard is never late, nor is he early, he arrives precisely when he means to.\" - Gandalf",
+    "\"Courage is found in unlikely places.\" - Gildor",
+    "\"Even the smallest person can change the course of the future.\" - Galadriel",
+    "\"There is nothing like looking, if you want to find something.\" - Bilbo Baggins",
+    "\"It's a dangerous business, Frodo, going out your door.\" - Bilbo Baggins",
+    "\"Faithless is he that says farewell when the road darkens.\" - Gimli",
+    "\"I am no man!\" - Éowyn",
+    "\"For Frodo.\" - Samwise Gamgee",
+    "\"The world is indeed full of peril, and in it there are many dark places.\" - Haldir"
+]
+# Pick a quote based on the day of the year so it stays the same all day
+day_of_year = datetime.now().timetuple().tm_yday
+daily_quote = quotes[day_of_year % len(quotes)]
+
+# --- 6. Fill the template ---
 with open('template.html', encoding='utf-8') as f:
     html = f.read()
 
@@ -179,7 +199,6 @@ html = html.replace('{{RUN_QUEST_CURRENT}}', str(monthly_run_dist))
 html = html.replace('{{RUN_QUEST_GOAL}}', str(RUN_GOAL))
 html = html.replace('{{RUN_QUEST_PCT}}', str(run_pct))
 html = html.replace('{{RUN_QUEST_COLOR}}', run_color)
-# UPDATED: Passing current distance and goal to the function
 html = html.replace('{{RUN_QUEST_STATUS}}', quest_status(run_pct, monthly_run_dist, RUN_GOAL))
 
 html = html.replace('{{RIDE_QUEST_TITLE}}', RIDE_QUEST_TITLE)
@@ -187,11 +206,13 @@ html = html.replace('{{RIDE_QUEST_CURRENT}}', str(monthly_ride_dist))
 html = html.replace('{{RIDE_QUEST_GOAL}}', str(RIDE_GOAL))
 html = html.replace('{{RIDE_QUEST_PCT}}', str(ride_pct))
 html = html.replace('{{RIDE_QUEST_COLOR}}', ride_color)
-# UPDATED: Passing current distance and goal to the function
 html = html.replace('{{RIDE_QUEST_STATUS}}', quest_status(ride_pct, monthly_ride_dist, RIDE_GOAL))
 
 # Journal
 html = html.replace('{{JOURNAL}}', journal_html)
+
+# Quote of the Day
+html = html.replace('{{QUOTE_OF_THE_DAY}}', daily_quote)
 
 with open('index.html', 'w', encoding='utf-8') as f:
     f.write(html)
