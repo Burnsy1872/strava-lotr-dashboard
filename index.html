@@ -37,6 +37,77 @@
 .progress-track { background: #d8c39a; border: 1px solid #b89b6a; border-radius: 999px; height: 18px; overflow: hidden; }
 .progress-fill { height: 100%; background: linear-gradient(90deg, #7a9e5a, #c9a23a); border-radius: 999px; transition: width 0.6s ease; }
 .quest-status { margin: 10px 0 0; font-style: italic; font-size: 0.9rem; }
+ /* ============================================================
+   COSMETIC POLISH 
+   ============================================================ */
+
+/* 1. Gentle page fade-in on load */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+body { 
+    animation: fadeIn 0.8s ease-out both; 
+}
+
+/* 2. Card hover effect (Lift + Glow) */
+.card, .quest-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover, .quest-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.5), 0 0 15px rgba(201,162,58,0.4);
+    z-index: 10; /* Brings the hovered card above its neighbors */
+}
+
+/* 3. The big numbers get a soft golden glow */
+.stat-number {
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+    font-weight: bold;
+}
+
+/* 4. Decorative gold divider under section titles */
+h2 {
+    position: relative;
+    padding-bottom: 10px;
+}
+h2::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c9a23a, transparent);
+}
+
+/* 5. A slow shimmer travelling across a COMPLETED (gold) quest bar */
+@keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+}
+.progress-fill[style*="d4af37"] {
+    background: linear-gradient(120deg, #d4af37 0%, #fff6c9 50%, #d4af37 100%) !important;
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+}
+
+/* 6. Ornamental "drop cap" on journal entries — makes it read like a real tome */
+.log p::first-letter {
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: #7a5a1e;
+    float: left;
+    line-height: 1;
+    margin-right: 4px;
+    font-family: 'Cinzel', serif;
+}
+
+/* 7. Theme-matched scrollbar (for desktop browsers) */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #2a2118; }
+::-webkit-scrollbar-thumb { background: #7a5a1e; border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: #c9a23a; }  
     </style>
 </head>
 <body>
@@ -123,9 +194,9 @@
             <div class="log">
                 <h2 style="text-align:center; color:#5c3a21;">Recent Journal Entries</h2>
                 <p><strong>Nov 16:</strong> <em>Zwift - California Dreamin' in Watopia</em> — The wind in your face and the road beneath you: 19.2 leagues ridden, 103m climbed.</p>
-                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — Ride out, ride out! 13.7 leagues crossed on two wheels, ascending 37m into the sky.</p>
-                <p><strong>Nov 15:</strong> <em>Zwift - Group Run: Group Run 10k  (D)</em> — Not all those who wander are lost, but this one covered 10.0 leagues and climbed 0m!</p>
-                <p><strong>Nov 14:</strong> <em>Afternoon Run</em> — The road goes ever on and on. 5.0 leagues covered, with 34m of elevation conquered.</p>
+                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — The wind in your face and the road beneath you: 13.7 leagues ridden, 37m climbed.</p>
+                <p><strong>Nov 15:</strong> <em>Zwift - Group Run: Group Run 10k  (D)</em> — A swift stride through the wilds! 10.0 leagues traveled, scaling 0m of mountains.</p>
+                <p><strong>Nov 14:</strong> <em>Afternoon Run</em> — A swift stride through the wilds! 5.0 leagues traveled, scaling 34m of mountains.</p>
                 <p><strong>Nov 13:</strong> <em>Zwift - Two Bridges Loop in Watopia</em> — Ride out, ride out! 7.2 leagues crossed on two wheels, ascending 80m into the sky.</p>
             </div>
         </div>
