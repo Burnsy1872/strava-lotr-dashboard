@@ -148,7 +148,7 @@ h2::after {
 .map-marker {
     position: absolute;
     top: 50%; /* Keeps the marker vertically centered. Change to 60% if your route is lower on the map */
-    left: {{JOURNEY_PCT}}%; /* Python will inject the percentage here! */
+    left: calc({{JOURNEY_PCT}}% * 0.92 + 4%); /* Python will inject the percentage here! */
     transform: translate(-50%, -50%);
     width: 16px;
     height: 16px;
