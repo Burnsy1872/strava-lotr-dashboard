@@ -37,6 +37,77 @@
 .progress-track { background: #d8c39a; border: 1px solid #b89b6a; border-radius: 999px; height: 18px; overflow: hidden; }
 .progress-fill { height: 100%; background: linear-gradient(90deg, #7a9e5a, #c9a23a); border-radius: 999px; transition: width 0.6s ease; }
 .quest-status { margin: 10px 0 0; font-style: italic; font-size: 0.9rem; }
+ /* ============================================================
+   COSMETIC POLISH 
+   ============================================================ */
+
+/* 1. Gentle page fade-in on load */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+body { 
+    animation: fadeIn 0.8s ease-out both; 
+}
+
+/* 2. Card hover effect (Lift + Glow) */
+.card, .quest-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover, .quest-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.5), 0 0 15px rgba(201,162,58,0.4);
+    z-index: 10; /* Brings the hovered card above its neighbors */
+}
+
+/* 3. The big numbers get a soft golden glow */
+.stat-number {
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+    font-weight: bold;
+}
+
+/* 4. Decorative gold divider under section titles */
+h2 {
+    position: relative;
+    padding-bottom: 10px;
+}
+h2::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c9a23a, transparent);
+}
+
+/* 5. A slow shimmer travelling across a COMPLETED (gold) quest bar */
+@keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+}
+.progress-fill[style*="d4af37"] {
+    background: linear-gradient(120deg, #d4af37 0%, #fff6c9 50%, #d4af37 100%) !important;
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+}
+
+/* 6. Ornamental "drop cap" on journal entries — makes it read like a real tome */
+.log p::first-letter {
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: #7a5a1e;
+    float: left;
+    line-height: 1;
+    margin-right: 4px;
+    font-family: 'Cinzel', serif;
+}
+
+/* 7. Theme-matched scrollbar (for desktop browsers) */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #2a2118; }
+::-webkit-scrollbar-thumb { background: #7a5a1e; border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: #c9a23a; }  
     </style>
 </head>
 <body>
