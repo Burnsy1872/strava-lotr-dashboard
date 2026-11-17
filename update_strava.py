@@ -132,12 +132,12 @@ for a in recent[:5]:
         options = [
             f"A journey of {km} leagues on foot, ascending {elev}m of rugged terrain.",
             f"The road goes ever on and on. {km} leagues covered, with {elev}m of elevation conquered.",
-            f"A swift stride through the wilds! {km} leagues traveled, scaling {elev}m of mountains.",
+            f"A swift stride through the wilds! {km} leagues travelled, scaling {elev}m of mountains.",
             f"Not all those who wander are lost, but this one covered {km} leagues and climbed {elev}m!"
         ]
     elif act_type in ['Ride', 'VirtualRide']:
         options = [
-            f"A ride across the lands, traveling {km} leagues on wheels and conquering {elev}m of elevation.",
+            f"A ride across the lands, travelling {km} leagues on wheels and conquering {elev}m of elevation.",
             f"Ride out, ride out! {km} leagues crossed on two wheels, ascending {elev}m into the sky.",
             f"Like a rider of Rohan, you covered {km} leagues and climbed {elev}m of steep terrain.",
             f"The wind in your face and the road beneath you: {km} leagues ridden, {elev}m climbed."
