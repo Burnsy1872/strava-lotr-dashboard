@@ -9,6 +9,9 @@ RIDE_GOAL = 200  # km this month
 RUN_QUEST_TITLE = "The Road to Rivendell"
 RIDE_QUEST_TITLE = "The Ride to Rohan"
 
+# --- Journey Map Settings ---
+JOURNEY_GOAL = 2000  # Total combined km to reach Mount Doom
+
 # --- Get secrets from GitHub's secret vault ---
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
@@ -39,6 +42,10 @@ run_time = round(stats['all_run_totals']['moving_time'] / 3600, 1)
 ride_dist = round(stats['all_ride_totals']['distance'] / 1000, 1)
 ride_elev = int(round(stats['all_ride_totals']['elevation_gain']))
 ride_time = round(stats['all_ride_totals']['moving_time'] / 3600, 1)
+
+# Calculate total journey distance and percentage
+total_dist = round(run_dist + ride_dist, 1)
+journey_pct = round(min(100, total_dist / JOURNEY_GOAL * 100))
 
 # --- 2. Fetch activities for Weekly (Mon-Sun) + Monthly ---
 now = datetime.now()
@@ -214,7 +221,11 @@ html = html.replace('{{JOURNAL}}', journal_html)
 # Quote of the Day
 html = html.replace('{{QUOTE_OF_THE_DAY}}', daily_quote)
 
+# Journey Map (NEW)
+html = html.replace('{{TOTAL_DIST}}', str(total_dist))
+html = html.replace('{{JOURNEY_PCT}}', str(journey_pct))
+
 with open('index.html', 'w', encoding='utf-8') as f:
     f.write(html)
 
-print(f"Success! Weekly Run: {weekly_run_dist}km | Monthly Run: {monthly_run_dist}/{RUN_GOAL}km ({run_pct}%) | Monthly Ride: {monthly_ride_dist}/{RIDE_GOAL}km ({ride_pct}%)")
+print(f"Success! Total Journey: {total_dist}km ({journey_pct}% to Mount Doom) | Weekly Run: {weekly_run_dist}km | Monthly Run: {monthly_run_dist}/{RUN_GOAL}km ({run_pct}%)")
