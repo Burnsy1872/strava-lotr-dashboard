@@ -121,17 +121,35 @@ h2::after {
     border-bottom: 1px solid rgba(212, 175, 55, 0.3);
     padding: 15px 0;
 }    
-   /* --- Journey Map Card --- */
+  /* --- Journey Map Card --- */
 .map-card {
     position: relative;
     width: 100%;
-    height: 300px; /* Adjust height if your map looks squished */
-    background: url('middleearth2.jpeg?v=2') 0% 50% / cover no-repeat;
     border-radius: 8px;
     border: 2px solid #8b6b4a;
     box-shadow: 0 8px 16px rgba(0,0,0,0.6);
     overflow: hidden;
     margin-top: 40px;
+}
+.map-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.map-marker {
+    position: absolute;
+    left: calc(0 * 0.8% + 12%);   /* 12% = Shire, 92% = Mordor */
+    top:  calc(0 * 0.45% + 22%);  /* 22% = Shire, 67% = Mordor */
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background-color: #d4af37;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #d4af37, 0 0 20px #d4af37;
+    transition: left 1s ease-in-out, top 1s ease-in-out;
+    z-index: 10;
+    animation: pulse 2s infinite;
 }
 .map-overlay {
     position: absolute;
@@ -144,26 +162,11 @@ h2::after {
     font-family: 'Cinzel', serif;
     font-size: 1.1em;
     text-align: center;
-.map-marker {
-    position: absolute;
-    left: calc(0 * 0.86% + 8%);   /* 8% (Shire)  -> 94% (Mordor) horizontally */
-    top:  calc(0 * 0.62% + 18%);  /* 18% (Shire) -> 80% (Mordor) vertically   */
-    transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
-    background-color: #d4af37;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #d4af37, 0 0 20px #d4af37;
-    transition: left 1s ease-in-out, top 1s ease-in-out;
-    z-index: 10;
-    animation: pulse 2s infinite;
 }
-/* A little pulse animation for the marker */
 @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+    0%   { box-shadow: 0 0 0 0  rgba(212,175,55,0.7); }
+    70%  { box-shadow: 0 0 0 10px rgba(212,175,55,0); }
+    100% { box-shadow: 0 0 0 0  rgba(212,175,55,0); }
 }
 .map-marker { animation: pulse 2s infinite; }
     </style>
@@ -214,14 +217,14 @@ h2::after {
                     <div class="stat-label">Time in the Saddle</div>
                 </div>
             </div>
-
-           <!-- NEW: Journey Progress Map -->
+<!-- NEW: Journey Progress Map -->
 <div class="map-card">
+    <img src="middleearth2.jpeg" class="map-img" alt="Map of Middle-earth">
     <div class="map-marker"></div>
     <div class="map-overlay">
         The Journey to Mount Doom: 5.0 km travelled
     </div>
-</div> 
+</div>
            <!-- WEEKLY STATS -->
             <h2 style="margin-top: 50px;">~ Weekly Quests ~</h2>
             <div class="stats-grid">
@@ -262,9 +265,9 @@ h2::after {
 </div>
             <div class="log">
                 <h2 style="text-align:center; color:#5c3a21;">Recent Journal Entries</h2>
-                <p><strong>Nov 18:</strong> <em>Morning Run</em> — The road goes ever on and on. 5.0 leagues covered, with 41m of elevation conquered.</p>
+                <p><strong>Nov 18:</strong> <em>Morning Run</em> — Not all those who wander are lost, but this one covered 5.0 leagues and climbed 41m!</p>
                 <p><strong>Nov 16:</strong> <em>Zwift - California Dreamin' in Watopia</em> — The wind in your face and the road beneath you: 19.2 leagues ridden, 103m climbed.</p>
-                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — A ride across the lands, travelling 13.7 leagues on wheels and conquering 37m of elevation.</p>
+                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — Like a rider of Rohan, you covered 13.7 leagues and climbed 37m of steep terrain.</p>
                 <p><strong>Nov 15:</strong> <em>Zwift - Group Run: Group Run 10k  (D)</em> — The road goes ever on and on. 10.0 leagues covered, with 0m of elevation conquered.</p>
                 <p><strong>Nov 14:</strong> <em>Afternoon Run</em> — A journey of 5.0 leagues on foot, ascending 34m of rugged terrain.</p>
             </div>
