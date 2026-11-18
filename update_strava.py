@@ -169,6 +169,7 @@ journal_html = "\n                ".join(lines)
 # --- 5. Quote of the Day ---
 quotes = [
     "\"Not all those who wander are lost.\" - J.R.R. Tolkien",
+    "\"You shall not pass!\" - Gandalf",
     "\"The road goes ever on and on.\" - Bilbo Baggins",
     "\"There's some good in this world, Mr. Frodo, and it's worth fighting for.\" - Samwise Gamgee",
     "\"I will not say: do not weep; for not all tears are an evil.\" - Gandalf",
