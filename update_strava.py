@@ -10,7 +10,8 @@ RUN_QUEST_TITLE = "The Road to Rivendell"
 RIDE_QUEST_TITLE = "The Ride to Rohan"
 
 # --- Journey Map Settings ---
-JOURNEY_GOAL = 8000  # Total combined km to reach Mount Doom
+VOYAGE_START = datetime(2026, 11, 17)  # The day your voyage began (the Shire). Change this date anytime.
+JOURNEY_GOAL = 2863                    # Exact km from the Shire to Mount Doom
 
 # --- Get secrets from GitHub's secret vault ---
 CLIENT_ID = os.environ.get('CLIENT_ID')
@@ -43,17 +44,13 @@ ride_dist = round(stats['all_ride_totals']['distance'] / 1000, 1)
 ride_elev = int(round(stats['all_ride_totals']['elevation_gain']))
 ride_time = round(stats['all_ride_totals']['moving_time'] / 3600, 1)
 
-# Calculate total journey distance and percentage
-total_dist = round(run_dist + ride_dist, 1)
-journey_pct = round(min(100, total_dist / JOURNEY_GOAL * 100))
-
-# --- 2. Fetch activities for Weekly (Mon-Sun) + Monthly ---
+# --- 2. Fetch activities for Weekly (Mon-Sun) + Monthly + Voyage ---
 now = datetime.now()
-# Find the most recent Monday (weekday() returns 0 for Monday, 6 for Sunday)
 days_since_monday = now.weekday()
 start_of_week = (now - timedelta(days=days_since_monday)).replace(hour=0, minute=0, second=0, microsecond=0)
 start_of_month = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-earliest_ts = int(min(start_of_week, start_of_month).timestamp())
+# Make sure the query window reaches back far enough to include the voyage start date
+earliest_ts = int(min(start_of_week, start_of_month, VOYAGE_START).timestamp())
 
 acts = requests.get(
     f'https://www.strava.com/api/v3/athletes/{athlete_id}/activities'
@@ -66,6 +63,7 @@ weekly_ride_dist = 0
 weekly_ride_elev = 0
 monthly_run_dist = 0
 monthly_ride_dist = 0
+voyage_dist = 0
 
 for a in acts:
     act_date = datetime.strptime(a['start_date_local'].split('T')[0], '%Y-%m-%d')
@@ -88,12 +86,18 @@ for a in acts:
         elif a['type'] in ['Ride', 'VirtualRide']:
             monthly_ride_dist += dist_km
 
+    # Voyage (since the journey began at the Shire)
+    if act_date >= VOYAGE_START:
+        if a['type'] in ['Run', 'VirtualRun', 'Ride', 'VirtualRide', 'Walk']:
+            voyage_dist += dist_km
+
 weekly_run_dist = round(weekly_run_dist, 1)
 weekly_run_elev = int(round(weekly_run_elev))
 weekly_ride_dist = round(weekly_ride_dist, 1)
 weekly_ride_elev = int(round(weekly_ride_elev))
 monthly_run_dist = round(monthly_run_dist, 1)
 monthly_ride_dist = round(monthly_ride_dist, 1)
+voyage_dist = round(voyage_dist, 1)
 
 # --- 3. Quest percentages + flavour text ---
 def quest_status(pct, current, goal):
@@ -110,6 +114,9 @@ def quest_status(pct, current, goal):
 
 run_pct  = round(min(100, monthly_run_dist  / RUN_GOAL  * 100))
 ride_pct = round(min(100, monthly_ride_dist / RIDE_GOAL * 100))
+
+# Voyage progress toward Mount Doom
+journey_pct = round(min(100, voyage_dist / JOURNEY_GOAL * 100))
 
 # Gold gradient if 100%, otherwise standard green/gold gradient
 run_color = "linear-gradient(90deg, #d4af37, #f9e79f)" if run_pct >= 100 else "linear-gradient(90deg, #7a9e5a, #c9a23a)"
@@ -155,11 +162,8 @@ for a in recent[:5]:
         ]
 
     flavor = random.choice(options)
-    
-    # This line adds the entry to the journal
     lines.append(f"<p><strong>{date}:</strong> <em>{name}</em> — {flavor}</p>")
 
-# This must be outside the loop
 journal_html = "\n                ".join(lines)
 
 # --- 5. Quote of the Day ---
@@ -178,7 +182,6 @@ quotes = [
     "\"For Frodo.\" - Samwise Gamgee",
     "\"The world is indeed full of peril, and in it there are many dark places.\" - Haldir"
 ]
-# Pick a quote based on the day of the year so it stays the same all day
 day_of_year = datetime.now().timetuple().tm_yday
 daily_quote = quotes[day_of_year % len(quotes)]
 
@@ -221,11 +224,11 @@ html = html.replace('{{JOURNAL}}', journal_html)
 # Quote of the Day
 html = html.replace('{{QUOTE_OF_THE_DAY}}', daily_quote)
 
-# Journey Map (NEW)
-html = html.replace('{{TOTAL_DIST}}', str(total_dist))
+# Journey Map (now the voyage, not all-time)
+html = html.replace('{{TOTAL_DIST}}', str(voyage_dist))
 html = html.replace('{{JOURNEY_PCT}}', str(journey_pct))
 
 with open('index.html', 'w', encoding='utf-8') as f:
     f.write(html)
 
-print(f"Success! Total Journey: {total_dist}km ({journey_pct}% to Mount Doom) | Weekly Run: {weekly_run_dist}km | Monthly Run: {monthly_run_dist}/{RUN_GOAL}km ({run_pct}%)")
+print(f"Success! Voyage: {voyage_dist}/{JOURNEY_GOAL} km to Mount Doom ({journey_pct}%) | Weekly Run: {weekly_run_dist}km | Monthly Run: {monthly_run_dist}/{RUN_GOAL}km ({run_pct}%)")
