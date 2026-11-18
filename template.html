@@ -144,11 +144,10 @@ h2::after {
     font-family: 'Cinzel', serif;
     font-size: 1.1em;
     text-align: center;
-}
 .map-marker {
     position: absolute;
-    top: 50%; /* Keeps the marker vertically centered. Change to 60% if your route is lower on the map */
-    left: calc({{JOURNEY_PCT}}% * 0.92 + 4%); /* Python will inject the percentage here! */
+    left: calc({{JOURNEY_PCT}} * 0.86% + 8%);   /* 8% (Shire)  -> 94% (Mordor) horizontally */
+    top:  calc({{JOURNEY_PCT}} * 0.62% + 18%);  /* 18% (Shire) -> 80% (Mordor) vertically   */
     transform: translate(-50%, -50%);
     width: 16px;
     height: 16px;
@@ -156,8 +155,9 @@ h2::after {
     border: 2px solid #fff;
     border-radius: 50%;
     box-shadow: 0 0 10px #d4af37, 0 0 20px #d4af37;
-    transition: left 1s ease-in-out;
+    transition: left 1s ease-in-out, top 1s ease-in-out;
     z-index: 10;
+    animation: pulse 2s infinite;
 }
 /* A little pulse animation for the marker */
 @keyframes pulse {
