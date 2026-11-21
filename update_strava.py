@@ -122,13 +122,13 @@ journey_pct = round(min(100, voyage_dist / JOURNEY_GOAL * 100))
 run_color = "linear-gradient(90deg, #d4af37, #f9e79f)" if run_pct >= 100 else "linear-gradient(90deg, #7a9e5a, #c9a23a)"
 ride_color = "linear-gradient(90deg, #d4af37, #f9e79f)" if ride_pct >= 100 else "linear-gradient(90deg, #7a9e5a, #c9a23a)"
 
-# --- 4. Journal (5 most recent, regardless of week/month) ---
+# --- 4. Journal (7 most recent, regardless of week/month) ---
 recent = requests.get(
-    f'https://www.strava.com/api/v3/athletes/{athlete_id}/activities?per_page=5',
+    f'https://www.strava.com/api/v3/athletes/{athlete_id}/activities?per_page=7',
     headers=headers).json()
 
 lines = []
-for a in recent[:5]:
+for a in recent[:7]:
     date = datetime.strptime(a['start_date_local'].split('T')[0], '%Y-%m-%d').strftime('%b %d')
     km = round(a['distance'] / 1000, 1)
     elev = int(round(a.get('total_elevation_gain', 0)))
