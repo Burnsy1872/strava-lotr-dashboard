@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Dark Earthy Background -->
+  <rect width="512" height="512" fill="#2a2118"/>
+  
+  <!-- Subtle Compass/Ring Background Detail -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="#4a3520" stroke-width="2"/>
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#4a3520" stroke-width="1"/>
+
+  <!-- Glowing Gold Ring -->
+  <circle cx="256" cy="230" r="120" fill="none" stroke="#d4af37" stroke-width="16"/>
+  
+  <!-- Mountain Silhouette (Mount Doom) -->
+  <path d="M 100 400 L 256 140 L 412 400 Z" fill="#1a120b" stroke="#d4af37" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M 160 400 L 256 220 L 352 400 Z" fill="#2a2118" stroke="#d4af37" stroke-width="4" stroke-linejoin="round"/>
+</svg>
