@@ -1,6 +1,6 @@
 {
-  "name": "Middle-Earth Explorer",
-  "short_name": "ME Explorer",
+  "name": "LOTR Fitness Tracker",
+  "short_name": "LOTR Fitness",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#2a2118",
