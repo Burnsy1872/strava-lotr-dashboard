@@ -135,19 +135,35 @@ for a in recent[:5]:
     act_type = a['type']
     name = a['name']
 
-    if act_type in ['Run', 'VirtualRun']:
+        if act_type in ['Run', 'VirtualRun']:
         options = [
             f"A journey of {km} leagues on foot, ascending {elev}m of rugged terrain.",
             f"The road goes ever on and on. {km} leagues covered, with {elev}m of elevation conquered.",
             f"A swift stride through the wilds! {km} leagues travelled, scaling {elev}m of mountains.",
-            f"Not all those who wander are lost, but this one covered {km} leagues and climbed {elev}m!"
+            f"Not all those who wander are lost, but this one covered {km} leagues and climbed {elev}m!",
+            f"Through shadow and light, {km} leagues were walked and {elev}m of mountains scaled.",
+            f"A fellowship of one, marching {km} leagues and conquering {elev}m of steep ascent.",
+            f"The eagles may fly, but you ran {km} leagues and climbed {elev}m on your own two feet!",
+            f"From the Shire to the edge of the wild: {km} leagues on foot, {elev}m of elevation gained.",
+            f"A steady pace, a heavy breath, and {km} leagues travelled with {elev}m of mountains overcome.",
+            f"You have walked where few dare to tread: {km} leagues and {elev}m of elevation behind you.",
+            f"The path was long and the hills were high: {km} leagues covered, {elev}m climbed.",
+            f"A true Ranger's pace: {km} leagues traversed on foot, ascending {elev}m into the clouds."
         ]
     elif act_type in ['Ride', 'VirtualRide']:
         options = [
             f"A ride across the lands, travelling {km} leagues on wheels and conquering {elev}m of elevation.",
             f"Ride out, ride out! {km} leagues crossed on two wheels, ascending {elev}m into the sky.",
             f"Like a rider of Rohan, you covered {km} leagues and climbed {elev}m of steep terrain.",
-            f"The wind in your face and the road beneath you: {km} leagues ridden, {elev}m climbed."
+            f"The wind in your face and the road beneath you: {km} leagues ridden, {elev}m climbed.",
+            f"Faster than the horses of the Mark! {km} leagues ridden, with {elev}m of elevation conquered.",
+            f"A great gallop across the plains: {km} leagues covered, scaling {elev}m of mountains.",
+            f"The wheels turned and the miles flew by: {km} leagues travelled, {elev}m of ascent achieved.",
+            f"Through the fields of Rohan and beyond: {km} leagues on two wheels, {elev}m of elevation gained.",
+            f"A swift journey on the wings of the wind: {km} leagues ridden, {elev}m climbed.",
+            f"The road called, and you answered on two wheels: {km} leagues and {elev}m of elevation.",
+            f"No shadow could catch you today: {km} leagues ridden and {elev}m of mountains scaled.",
+            f"A magnificent charge across Middle-earth: {km} leagues covered, {elev}m of elevation conquered."
         ]
     elif act_type == 'Walk':
         options = [
