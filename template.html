@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Middle-Earth Explorer</title>
+    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
        body {
@@ -269,5 +270,14 @@ h2::after {
             </div>
         </div>
     </div>
+   <script>
+     if ('serviceWorker' in navigator) {
+       window.addEventListener('load', () => {
+         navigator.serviceWorker.register('/sw.js')
+           .then(reg => console.log('Service Worker registered!', reg))
+           .catch(err => console.log('Service Worker registration failed:', err));
+       });
+     }
+   </script>
 </body>
 </html>
