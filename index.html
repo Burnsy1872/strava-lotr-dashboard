@@ -84,6 +84,15 @@ h2::after {
     background: linear-gradient(90deg, transparent, #c9a23a, transparent);
 }
 
+/* 4b. Sub-headers (group labels) — italic gold, NO divider line */
+.section-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: #d4af37;
+    font-size: 1.3em;
+    margin-top: 30px;
+}
+
 /* 5. A slow shimmer travelling across a COMPLETED (gold) quest bar */
 @keyframes shimmer {
     0%   { background-position: -200% 0; }
@@ -185,41 +194,46 @@ h2::after {
     
     <h2>~ The Complete Odyssey ~</h2>
 
+    <!-- ON FOOT -->
+    <p class="section-sub">~ The Road on Foot ~</p>
     <div class="stats-grid">
-                <!-- RUNNING CARDS -->
-                <div class="card">
-                    <div class="stat-label">Running Distance</div>
-                    <div class="stat-number">2710.7 km</div>
-                    <div class="stat-label">Leagues on Foot</div>
-                </div>
-                <div class="card">
-                    <div class="stat-label">Running Ascents</div>
-                    <div class="stat-number">10340 m</div>
-                    <div class="stat-label">Mountains Climbed</div>
-                </div>
-                <div class="card">
-                    <div class="stat-label">Running Time</div>
-                    <div class="stat-number">277.1 h</div>
-                    <div class="stat-label">Time on the Road</div>
-                </div>
+        <div class="card">
+            <div class="stat-label">Running Distance</div>
+            <div class="stat-number">2710.7 km</div>
+            <div class="stat-label">Leagues on Foot</div>
+        </div>
+        <div class="card">
+            <div class="stat-label">Running Ascents</div>
+            <div class="stat-number">10340 m</div>
+            <div class="stat-label">Mountains Climbed</div>
+        </div>
+        <div class="card">
+            <div class="stat-label">Running Time</div>
+            <div class="stat-number">277.1 h</div>
+            <div class="stat-label">Time on the Road</div>
+        </div>
+    </div>
 
-                <!-- CYCLING CARDS -->
-                <div class="card">
-                    <div class="stat-label">Cycling Distance</div>
-                    <div class="stat-number">2040.0 km</div>
-                    <div class="stat-label">Leagues on Wheels</div>
-                </div>
-                <div class="card">
-                    <div class="stat-label">Cycling Ascents</div>
-                    <div class="stat-number">16265 m</div>
-                    <div class="stat-label">Mountains Climbed</div>
-                </div>
-                <div class="card">
-                    <div class="stat-label">Cycling Time</div>
-                    <div class="stat-number">83.2 h</div>
-                    <div class="stat-label">Time in the Saddle</div>
-                </div>
-            </div>
+    <!-- ON WHEELS -->
+    <p class="section-sub">~ The Ride of the Mark ~</p>
+    <div class="stats-grid">
+        <div class="card">
+            <div class="stat-label">Cycling Distance</div>
+            <div class="stat-number">2040.0 km</div>
+            <div class="stat-label">Leagues on Wheels</div>
+        </div>
+        <div class="card">
+            <div class="stat-label">Cycling Ascents</div>
+            <div class="stat-number">16265 m</div>
+            <div class="stat-label">Mountains Climbed</div>
+        </div>
+        <div class="card">
+            <div class="stat-label">Cycling Time</div>
+            <div class="stat-number">83.2 h</div>
+            <div class="stat-label">Time in the Saddle</div>
+        </div>
+    </div>
+
 <!-- NEW: Journey Progress Map -->
 <div class="map-card">
     <img src="middleearth2.jpeg" class="map-img" alt="Map of Middle-earth">
@@ -228,8 +242,12 @@ h2::after {
         The Journey to Mount Doom: 34.9 / 2,863 km travelled
     </div>
 </div>
+
            <!-- WEEKLY STATS -->
             <h2 style="margin-top: 50px;">~ Weekly Quests ~</h2>
+
+            <!-- WEEKLY FOOT -->
+            <p class="section-sub">~ Weekly Foot Quests ~</p>
             <div class="stats-grid">
                 <div class="card">
                     <div class="stat-label">Weekly Run</div>
@@ -241,6 +259,11 @@ h2::after {
                     <div class="stat-number">105 m</div>
                     <div class="stat-label">Mountains Climbed</div>
                 </div>
+            </div>
+
+            <!-- WEEKLY WHEELS -->
+            <p class="section-sub">~ Weekly Wheel Quests ~</p>
+            <div class="stats-grid">
                 <div class="card">
                     <div class="stat-label">Weekly Ride</div>
                     <div class="stat-number">56.8 km</div>
@@ -252,6 +275,9 @@ h2::after {
                     <div class="stat-label">Mountains Climbed</div>
                 </div>
             </div>
+
+            <!-- THE BIG QUEST PROGRESS BARS -->
+            <p class="section-sub">~ The Monthly Oaths ~</p>
             <div class="quest-grid">
     <div class="quest-card">
         <h3>The Road to Rivendell</h3>
@@ -268,11 +294,11 @@ h2::after {
 </div>
             <div class="log">
                 <h2 style="text-align:center; color:#5c3a21;">Recent Journal Entries</h2>
-                <p><strong>Nov 21:</strong> <em>Afternoon Run</em> — The path was long and the hills were high: 6.1 leagues covered, 64m climbed.</p>
-                <p><strong>Nov 19:</strong> <em>Afternoon Ride</em> — The wheels turned and the miles flew by: 23.9 leagues travelled, 403m of ascent achieved.</p>
-                <p><strong>Nov 18:</strong> <em>Morning Run</em> — A true Ranger's pace: 5.0 leagues traversed on foot, ascending 41m into the clouds.</p>
-                <p><strong>Nov 16:</strong> <em>Zwift - California Dreamin' in Watopia</em> — A great gallop across the plains: 19.2 leagues covered, scaling 103m of mountains.</p>
-                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — Ride out, ride out! 13.7 leagues crossed on two wheels, ascending 37m into the sky.</p>
+                <p><strong>Nov 21:</strong> <em>Afternoon Run</em> — A journey of 6.1 leagues on foot, ascending 64m of rugged terrain.</p>
+                <p><strong>Nov 19:</strong> <em>Afternoon Ride</em> — The road called, and you answered on two wheels: 23.9 leagues and 403m of elevation.</p>
+                <p><strong>Nov 18:</strong> <em>Morning Run</em> — From the Shire to the edge of the wild: 5.0 leagues on foot, 41m of elevation gained.</p>
+                <p><strong>Nov 16:</strong> <em>Zwift - California Dreamin' in Watopia</em> — The road called, and you answered on two wheels: 19.2 leagues and 103m of elevation.</p>
+                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — A swift journey on the wings of the wind: 13.7 leagues ridden, 37m climbed.</p>
             </div>
         </div>
     </div>
