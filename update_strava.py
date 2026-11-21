@@ -135,7 +135,8 @@ for a in recent[:5]:
     act_type = a['type']
     name = a['name']
 
-        if act_type in ['Run', 'VirtualRun']:
+    # FIXED: Removed the extra indentation here that was causing the crash!
+    if act_type in ['Run', 'VirtualRun']:
         options = [
             f"A journey of {km} leagues on foot, ascending {elev}m of rugged terrain.",
             f"The road goes ever on and on. {km} leagues covered, with {elev}m of elevation conquered.",
