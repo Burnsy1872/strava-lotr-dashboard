@@ -1,4 +1,4 @@
-const CACHE_NAME = 'me-explorer-v1';
+const CACHE_NAME = 'me-explorer-v2';
 const urlsToCache = [
   '/',
   '/index.html',
