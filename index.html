@@ -14,7 +14,7 @@
     background-image: url('map.jpg');
     background-size: cover;
     background-attachment: fixed;
-    background-position: center center; /* Add this line */
+    background-position: center center;
 }
         .overlay { background-color: rgba(0,0,0,0.5); min-height: 100vh; padding: 40px 20px; }
         .container { max-width: 800px; margin: 0 auto; text-align: center; }
@@ -27,7 +27,25 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.6);
         }
         .stat-number { font-family: 'Cinzel', serif; font-size: 2.5em; font-weight: bold; color: #5c3a21; margin: 10px 0; }
-           .stat-label { font-style: italic; font-size: 1.1em; font-weight: bold; }
+        .stat-label { font-style: italic; font-size: 1.1em; font-weight: bold; }
+        
+        /* --- Icon Styling for SVG files --- */
+        .card-icon { 
+            display: flex; 
+            justify-content: center; 
+            margin: 8px 0; 
+            opacity: 0.9;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .card-icon img { 
+            width: 48px; 
+            height: 48px; 
+        }
+        .card:hover .card-icon { 
+            opacity: 1; 
+            transform: scale(1.1); 
+        }
+
         .log {
             background-color: rgba(240,225,200,0.95); color: #3b2b1a; margin-top: 40px; padding: 30px;
             border-radius: 8px; text-align: left; border: 2px solid #8b6b4a; box-shadow: 0 8px 16px rgba(0,0,0,0.6);
@@ -61,7 +79,7 @@ body {
 .card:hover, .quest-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 24px rgba(0,0,0,0.5), 0 0 15px rgba(201,162,58,0.4);
-    z-index: 10; /* Brings the hovered card above its neighbors */
+    z-index: 10;
 }
 
 /* 3. The big numbers get a soft golden glow */
@@ -125,7 +143,7 @@ h2::after {
 .daily-quote {
     font-family: 'Lora', serif;
     font-style: italic;
-    color: #d4af37; /* Gold text */
+    color: #d4af37;
     font-size: 1.2em;
     margin: 30px auto;
     max-width: 600px;
@@ -151,8 +169,8 @@ h2::after {
 }
 .map-marker {
     position: absolute;
-    left: calc(2 * 0.59% + 23%);   /* start 23% (Shire) -> 82% (Mordor) */
-    top:  calc(2 * 0.38% + 34%);   /* start 34% (Shire) -> 72% (Mordor) */
+    left: calc(2 * 0.59% + 23%);
+    top:  calc(2 * 0.38% + 34%);
     transform: translate(-50%, -50%);
     width: 16px;
     height: 16px;
@@ -190,7 +208,6 @@ h2::after {
     <h1>The Lord of the Rings</h1>
     <h1>Fitness Tracker</h1>
     
-    <!-- NEW: Quote of the Day (Moved up) -->
     <p class="daily-quote">"I will not say: do not weep; for not all tears are an evil." - Gandalf</p>
     
     <h2>~ The Complete Odyssey ~</h2>
@@ -200,16 +217,19 @@ h2::after {
     <div class="stats-grid">
         <div class="card">
             <div class="stat-label">Running Distance</div>
+            <div class="card-icon"><img src="runner.svg" alt="Running icon"></div>
             <div class="stat-number">2710.7 km</div>
             <div class="stat-label">Leagues on Foot</div>
         </div>
         <div class="card">
             <div class="stat-label">Running Ascents</div>
+            <div class="card-icon"><img src="mountain.svg" alt="Mountain icon"></div>
             <div class="stat-number">10340 m</div>
             <div class="stat-label">Mountains Climbed</div>
         </div>
         <div class="card">
             <div class="stat-label">Running Time</div>
+            <div class="card-icon"><img src="sand-timer.svg" alt="Time icon"></div>
             <div class="stat-number">277.1 h</div>
             <div class="stat-label">Time on the Road</div>
         </div>
@@ -220,89 +240,97 @@ h2::after {
     <div class="stats-grid">
         <div class="card">
             <div class="stat-label">Cycling Distance</div>
+            <div class="card-icon"><img src="wheel.svg" alt="Cycling icon"></div>
             <div class="stat-number">2071.3 km</div>
             <div class="stat-label">Leagues on Wheels</div>
         </div>
         <div class="card">
             <div class="stat-label">Cycling Ascents</div>
+            <div class="card-icon"><img src="mountain.svg" alt="Mountain icon"></div>
             <div class="stat-number">16487 m</div>
             <div class="stat-label">Mountains Climbed</div>
         </div>
         <div class="card">
             <div class="stat-label">Cycling Time</div>
+            <div class="card-icon"><img src="sand-timer.svg" alt="Time icon"></div>
             <div class="stat-number">84.1 h</div>
             <div class="stat-label">Time in the Saddle</div>
         </div>
     </div>
 
-<!-- NEW: Journey Progress Map -->
-<div class="map-card">
-    <img src="middleearth2.jpeg" class="map-img" alt="Map of Middle-earth">
-    <div class="map-marker"></div>
-    <div class="map-overlay">
-        The Journey to Mount Doom: 66.2 / 2,863 km travelled
+    <!-- Journey Progress Map -->
+    <div class="map-card">
+        <img src="middleearth2.jpeg" class="map-img" alt="Map of Middle-earth">
+        <div class="map-marker"></div>
+        <div class="map-overlay">
+            The Journey to Mount Doom: 66.2 / 2,863 km travelled
+        </div>
     </div>
-</div>
 
-           <!-- WEEKLY STATS -->
-            <h2 style="margin-top: 50px;">~ Weekly Quests ~</h2>
+    <!-- WEEKLY STATS -->
+    <h2 style="margin-top: 50px;">~ Weekly Quests ~</h2>
 
-            <!-- WEEKLY FOOT -->
-            <p class="section-sub">~ Weekly Foot Quests ~</p>
-            <div class="stats-grid">
-                <div class="card">
-                    <div class="stat-label">Weekly Run</div>
-                    <div class="stat-number">11.1 km</div>
-                    <div class="stat-label">Leagues on Foot</div>
-                </div>
-                <div class="card">
-                    <div class="stat-label">Weekly Run Ascent</div>
-                    <div class="stat-number">105 m</div>
-                    <div class="stat-label">Mountains Climbed</div>
-                </div>
-            </div>
-
-            <!-- WEEKLY WHEELS -->
-            <p class="section-sub">~ Weekly Wheel Quests ~</p>
-            <div class="stats-grid">
-                <div class="card">
-                    <div class="stat-label">Weekly Ride</div>
-                    <div class="stat-number">88.1 km</div>
-                    <div class="stat-label">Leagues on Wheels</div>
-                </div>
-                <div class="card">
-                    <div class="stat-label">Weekly Ride Ascent</div>
-                    <div class="stat-number">765 m</div>
-                    <div class="stat-label">Mountains Climbed</div>
-                </div>
-            </div>
-
-            <!-- THE BIG QUEST PROGRESS BARS -->
-            <p class="section-sub">~ The Monthly Oaths ~</p>
-            <div class="quest-grid">
-    <div class="quest-card">
-        <h3>The Road to Rivendell</h3>
-        <p class="quest-sub">This moon: 46.4 / 100 leagues</p>
-        <div class="progress-track"><div class="progress-fill" style="width: 46%; background: linear-gradient(90deg, #7a9e5a, #c9a23a);"></div></div>
-        <p class="quest-status">A good start. 53.6 leagues still lie ahead.</p>
+    <p class="section-sub">~ Weekly Foot Quests ~</p>
+    <div class="stats-grid">
+        <div class="card">
+            <div class="stat-label">Weekly Run</div>
+            <div class="card-icon"><img src="runner.svg" alt="Running icon"></div>
+            <div class="stat-number">11.1 km</div>
+            <div class="stat-label">Leagues on Foot</div>
+        </div>
+        <div class="card">
+            <div class="stat-label">Weekly Run Ascent</div>
+            <div class="card-icon"><img src="mountain.svg" alt="Mountain icon"></div>
+            <div class="stat-number">105 m</div>
+            <div class="stat-label">Mountains Climbed</div>
+        </div>
     </div>
-    <div class="quest-card">
-        <h3>The Ride to Rohan</h3>
-        <p class="quest-sub">This moon: 190.3 / 200 leagues</p>
-        <div class="progress-track"><div class="progress-fill" style="width: 95%; background: linear-gradient(90deg, #7a9e5a, #c9a23a);"></div></div>
-        <p class="quest-status">The final stretch! Only 9.7 leagues left to conquer.</p>
+
+    <p class="section-sub">~ Weekly Wheel Quests ~</p>
+    <div class="stats-grid">
+        <div class="card">
+            <div class="stat-label">Weekly Ride</div>
+            <div class="card-icon"><img src="wheel.svg" alt="Cycling icon"></div>
+            <div class="stat-number">88.1 km</div>
+            <div class="stat-label">Leagues on Wheels</div>
+        </div>
+        <div class="card">
+            <div class="stat-label">Weekly Ride Ascent</div>
+            <div class="card-icon"><img src="mountain.svg" alt="Mountain icon"></div>
+            <div class="stat-number">765 m</div>
+            <div class="stat-label">Mountains Climbed</div>
+        </div>
     </div>
-</div>
-            <div class="log">
-                <h2 style="text-align:center; color:#5c3a21;">Recent Journal Entries</h2>
-                <p><strong>Nov 22:</strong> <em>Zwift - Group Ride: Stage 1 - Zwift Power Play</em> — Through the fields of Rohan and beyond: 31.3 leagues on two wheels, 222m of elevation gained.</p>
-                <p><strong>Nov 21:</strong> <em>Afternoon Run</em> — A fellowship of one, marching 6.1 leagues and conquering 64m of steep ascent.</p>
-                <p><strong>Nov 19:</strong> <em>Afternoon Ride</em> — Through the fields of Rohan and beyond: 23.9 leagues on two wheels, 403m of elevation gained.</p>
-                <p><strong>Nov 18:</strong> <em>Morning Run</em> — You have walked where few dare to tread: 5.0 leagues and 41m of elevation behind you.</p>
-                <p><strong>Nov 16:</strong> <em>Zwift - California Dreamin' in Watopia</em> — No shadow could catch you today: 19.2 leagues ridden and 103m of mountains scaled.</p>
-                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — No shadow could catch you today: 13.7 leagues ridden and 37m of mountains scaled.</p>
-                <p><strong>Nov 15:</strong> <em>Zwift - Group Run: Group Run 10k  (D)</em> — A true Ranger's pace: 10.0 leagues traversed on foot, ascending 0m into the clouds.</p>
-            </div>
+
+    <!-- THE BIG QUEST PROGRESS BARS -->
+    <p class="section-sub">~ The Monthly Oaths ~</p>
+    <div class="quest-grid">
+        <div class="quest-card">
+            <div class="card-icon" style="margin-bottom: 8px;"><img src="scrolls.svg" alt="Scroll icon"></div>
+            <h3>The Road to Rivendell</h3>
+            <p class="quest-sub">This moon: 46.4 / 100 leagues</p>
+            <div class="progress-track"><div class="progress-fill" style="width: 46%; background: linear-gradient(90deg, #7a9e5a, #c9a23a);"></div></div>
+            <p class="quest-status">A good start. 53.6 leagues still lie ahead.</p>
+        </div>
+        <div class="quest-card">
+            <div class="card-icon" style="margin-bottom: 8px;"><img src="scrolls.svg" alt="Scroll icon"></div>
+            <h3>The Ride to Rohan</h3>
+            <p class="quest-sub">This moon: 190.3 / 200 leagues</p>
+            <div class="progress-track"><div class="progress-fill" style="width: 95%; background: linear-gradient(90deg, #7a9e5a, #c9a23a);"></div></div>
+            <p class="quest-status">The final stretch! Only 9.7 leagues left to conquer.</p>
+        </div>
+    </div>
+
+    <div class="log">
+        <h2 style="text-align:center; color:#5c3a21;">Recent Journal Entries</h2>
+        <p><strong>Nov 22:</strong> <em>Zwift - Group Ride: Stage 1 - Zwift Power Play</em> — The road called, and you answered on two wheels: 31.3 leagues and 222m of elevation.</p>
+                <p><strong>Nov 21:</strong> <em>Afternoon Run</em> — A steady pace, a heavy breath, and 6.1 leagues travelled with 64m of mountains overcome.</p>
+                <p><strong>Nov 19:</strong> <em>Afternoon Ride</em> — Faster than the horses of the Mark! 23.9 leagues ridden, with 403m of elevation conquered.</p>
+                <p><strong>Nov 18:</strong> <em>Morning Run</em> — The path was long and the hills were high: 5.0 leagues covered, 41m climbed.</p>
+                <p><strong>Nov 16:</strong> <em>Zwift - California Dreamin' in Watopia</em> — A great gallop across the plains: 19.2 leagues covered, scaling 103m of mountains.</p>
+                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — The wind in your face and the road beneath you: 13.7 leagues ridden, 37m climbed.</p>
+                <p><strong>Nov 15:</strong> <em>Zwift - Group Run: Group Run 10k  (D)</em> — A fellowship of one, marching 10.0 leagues and conquering 0m of steep ascent.</p>
+    </div>
         </div>
     </div>
    <script>
