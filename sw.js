@@ -1,4 +1,4 @@
-const CACHE_NAME = 'me-explorer-v1.9';
+const CACHE_NAME = 'me-explorer-v2';
 const urlsToCache = [
   '/template.html',
   '/manifest.json'
