@@ -4,7 +4,7 @@ import random
 from datetime import datetime, timedelta
 
 # --- Quest Settings (change goals/titles here) ---
-RUN_GOAL = 100   # km this month
+RUN_GOAL = 70   # km this month
 RIDE_GOAL = 200  # km this month
 RUN_QUEST_TITLE = "The Road to Rivendell"
 RIDE_QUEST_TITLE = "The Ride to Rohan"
