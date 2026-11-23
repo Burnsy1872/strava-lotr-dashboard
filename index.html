@@ -94,21 +94,24 @@ h1{font-family:'Cinzel',serif;font-size:clamp(2.2rem,7.4vw,3.5rem);margin:.22em 
 .daily-quote{font-style:italic;color:var(--gold);font-size:1.1em;margin:0 auto 10px;max-width:620px;
   text-shadow:1px 1px 3px #000;border-top:1px solid rgba(212,175,55,.3);border-bottom:1px solid rgba(212,175,55,.3);padding:14px 6px}
 
-.voyage{margin:28px auto 8px;max-width:660px;text-align:left;position:relative;overflow:hidden;
+.voyage{--stage:#8a6a1e;margin:28px auto 8px;max-width:660px;text-align:left;position:relative;overflow:hidden;
   background:linear-gradient(158deg,rgba(240,225,200,.97),rgba(230,211,179,.95));color:var(--ink);
   border:2px solid var(--bronze);border-radius:12px;padding:18px 22px 20px;
   box-shadow:0 12px 28px rgba(0,0,0,.62),inset 0 0 0 1px rgba(255,255,255,.35)}
 .voyage::after{content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;
-  background:radial-gradient(circle,rgba(179,64,42,.18),transparent 68%);pointer-events:none}
+  background:radial-gradient(circle,rgba(179,64,42,.16),transparent 68%);pointer-events:none}
 .voyage-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 .voyage-head .overline{color:#7a5a1e}
-.voyage-pct{font-family:'Cinzel',serif;font-weight:700;color:var(--ember);font-size:1.15rem;min-width:68px;text-align:right}
+.voyage-pct{font-family:'Cinzel',serif;font-weight:700;color:var(--stage);font-size:1.15rem;min-width:68px;
+  text-align:right;transition:color .8s ease}
 .voyage-figure{font-family:'Cinzel',serif;font-weight:700;color:#5c3a21;font-size:clamp(1.85rem,6.4vw,2.7rem);
   margin:2px 0 14px;text-shadow:0 0 12px rgba(255,215,0,.5)}
 .voyage-den{font-size:.48em;color:var(--bronze);margin-left:8px;letter-spacing:.04em}
 
 .voyage-track{position:relative;height:14px;border-radius:999px;background:#dcc79f;border:1px solid #b89b6a;
   margin-bottom:60px;box-shadow:inset 0 1px 3px rgba(90,60,30,.35)}
+.voyage-road{position:absolute;left:9px;right:9px;top:50%;height:0;transform:translateY(-50%);
+  border-top:2px dashed rgba(139,107,74,.38);border-radius:2px;pointer-events:none}
 .voyage-reveal{position:absolute;left:0;top:0;bottom:0;border-radius:999px;overflow:hidden;
   transition:width 1.6s cubic-bezier(.22,.61,.36,1)}
 .voyage-grad{position:absolute;left:0;top:0;height:100%;
@@ -138,10 +141,10 @@ h1{font-family:'Cinzel',serif;font-size:clamp(2.2rem,7.4vw,3.5rem);margin:.22em 
 .wp.first b{transform:none;left:-1px}
 .wp.last b{transform:translateX(-100%);left:1px}
 
-.waymarks{display:none;flex-wrap:wrap;gap:6px;list-style:none;margin:0 0 12px;padding:0}
-.waymarks li{display:flex;align-items:center;gap:5px;font-family:'Cinzel',serif;font-weight:700;font-size:.6rem;
+.waymarks{display:none;flex-wrap:wrap;gap:5px;list-style:none;margin:0 0 11px;padding:0}
+.waymarks li{display:flex;align-items:center;gap:5px;font-family:'Cinzel',serif;font-weight:700;font-size:.58rem;
   letter-spacing:.03em;color:#8b6b4a;background:rgba(255,255,255,.42);border:1px solid rgba(139,107,74,.35);
-  border-radius:999px;padding:3px 9px;transition:color .3s,border-color .3s,background .3s}
+  border-radius:999px;padding:3px 8px;transition:color .3s,border-color .3s,background .3s}
 .waymarks li i{width:6px;height:6px;border-radius:50%;background:rgba(139,107,74,.5);flex:none;transition:background .3s}
 .waymarks li span{font-weight:400;font-family:'Lora',serif;font-size:.94em;opacity:.8}
 .waymarks li.passed{color:#7a5a1e;border-color:rgba(212,175,55,.65);background:rgba(212,175,55,.14)}
@@ -154,9 +157,14 @@ h1{font-family:'Cinzel',serif;font-size:clamp(2.2rem,7.4vw,3.5rem);margin:.22em 
   .wp b{display:none}
   .wp.t1 i{height:8px}
   .waymarks{display:flex}
+  .voyage-head .overline{font-size:.58rem;letter-spacing:.14em}
+  .voyage-pct{font-size:1.05rem;min-width:58px}
 }
 .voyage-cap{margin:0;font-style:italic;font-size:.9rem;color:#6b4a2a;line-height:1.5}
 .voyage-cap b{font-style:normal;font-weight:600;color:var(--ember)}
+.voyage-pace{margin:7px 0 0;font-size:.76rem;color:#8b6b4a;line-height:1.45;
+  border-top:1px dashed rgba(139,107,74,.35);padding-top:8px}
+.voyage-pace b{font-weight:600;color:#7a5a1e}
 
 h2{font-family:'Cinzel',serif;color:var(--accent);font-size:1.5em;position:relative;padding-bottom:10px;margin:48px 0 0;
   text-shadow:1px 1px 3px rgba(0,0,0,.7);transition:color .5s ease}
@@ -289,7 +297,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
     <div class="rule stage" aria-hidden="true"><i></i></div>
     <p class="daily-quote stage">"A wizard is never late, nor is he early, he arrives precisely when he means to." - Gandalf</p>
 
-    <section class="voyage reveal" aria-label="Journey progress">
+    <!-- data-start must match VOYAGE_START in update_strava.py -->
+    <section class="voyage reveal" id="voyage" data-start="2026-11-17" aria-label="Journey progress">
       <div class="voyage-head">
         <span class="overline">The Journey to Mount Doom</span>
         <span class="voyage-pct" id="pct">2%</span>
@@ -297,6 +306,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
       <div class="voyage-figure"><span class="count">71.2</span><span class="voyage-den">/ 2,863 km</span></div>
 
       <div class="voyage-track" id="track" role="img" aria-label="Progress along the road from the Shire to Mount Doom">
+        <div class="voyage-road" aria-hidden="true"></div>
         <div class="voyage-reveal" id="reveal" style="width:2%">
           <div class="voyage-grad" id="grad"></div>
         </div>
@@ -322,6 +332,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
       </ul>
 
       <p class="voyage-cap"><b id="nextstop">The road goes ever on.</b> <span id="remaining">From the Shire to the fire.</span></p>
+      <p class="voyage-pace" id="pace">Every league shortens the road.</p>
     </section>
 
     <section id="odyssey">
@@ -437,13 +448,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
     <section id="journal">
       <div class="log reveal">
         <h2>Recent Journal Entries</h2>
-        <p><strong>Nov 23:</strong> <em>Evening Run</em> — A fellowship of one, marching 5.0 leagues and conquering 38m of steep ascent.</p>
+        <p><strong>Nov 23:</strong> <em>Evening Run</em> — Not all those who wander are lost, but this one covered 5.0 leagues and climbed 38m!</p>
                 <p><strong>Nov 22:</strong> <em>Zwift - Group Ride: Stage 1 - Zwift Power Play</em> — Faster than the horses of the Mark! 31.3 leagues ridden, with 222m of elevation conquered.</p>
-                <p><strong>Nov 21:</strong> <em>Afternoon Run</em> — A fellowship of one, marching 6.1 leagues and conquering 64m of steep ascent.</p>
-                <p><strong>Nov 19:</strong> <em>Afternoon Ride</em> — The wind in your face and the road beneath you: 23.9 leagues ridden, 403m climbed.</p>
-                <p><strong>Nov 18:</strong> <em>Morning Run</em> — Through shadow and light, 5.0 leagues were walked and 41m of mountains scaled.</p>
-                <p><strong>Nov 16:</strong> <em>Zwift - California Dreamin' in Watopia</em> — The road called, and you answered on two wheels: 19.2 leagues and 103m of elevation.</p>
-                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — The wheels turned and the miles flew by: 13.7 leagues travelled, 37m of ascent achieved.</p>
+                <p><strong>Nov 21:</strong> <em>Afternoon Run</em> — From the Shire to the edge of the wild: 6.1 leagues on foot, 64m of elevation gained.</p>
+                <p><strong>Nov 19:</strong> <em>Afternoon Ride</em> — The road called, and you answered on two wheels: 23.9 leagues and 403m of elevation.</p>
+                <p><strong>Nov 18:</strong> <em>Morning Run</em> — A steady pace, a heavy breath, and 5.0 leagues travelled with 41m of mountains overcome.</p>
+                <p><strong>Nov 16:</strong> <em>Zwift - California Dreamin' in Watopia</em> — A magnificent charge across Middle-earth: 19.2 leagues covered, 103m of elevation conquered.</p>
+                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — Like a rider of Rohan, you covered 13.7 leagues and climbed 37m of steep terrain.</p>
       </div>
     </section>
 
@@ -511,6 +522,7 @@ if ('serviceWorker' in navigator) {
   var total = isNaN(rawTotal) ? (isNaN(bakedPct) ? 0 : bakedPct/100*GOAL) : rawTotal;
   var pct = Math.max(0, Math.min(100, total/GOAL*100));
 
+  var voyage  = document.getElementById('voyage');
   var marker  = document.getElementById('marker');
   var mapcard = document.getElementById('mapcard');
   var track   = document.getElementById('track');
@@ -521,6 +533,7 @@ if ('serviceWorker' in navigator) {
   var chip    = document.getElementById('chip');
   var nextEl  = document.getElementById('nextstop');
   var remEl   = document.getElementById('remaining');
+  var paceEl  = document.getElementById('pace');
   var ticks   = Array.prototype.slice.call(document.querySelectorAll('.wp'));
   var chips   = Array.prototype.slice.call(document.querySelectorAll('.waymarks li'));
 
@@ -543,6 +556,17 @@ if ('serviceWorker' in navigator) {
     if(chip)  chip.textContent  = s;
   }
 
+  /* the percentage takes the color of the land you are standing in */
+  var LANDS = [
+    {upto:15,  color:'#4f7a3a', name:'the Shire'},
+    {upto:42,  color:'#8a6a1e', name:'the Wild'},
+    {upto:70,  color:'#a2601c', name:'the Mark'},
+    {upto:101, color:'#b3402a', name:'the shadow of Mordor'}
+  ];
+  var land = LANDS[LANDS.length-1];
+  for(var i=0;i<LANDS.length;i++){ if(pct < LANDS[i].upto){ land = LANDS[i]; break; } }
+  if(voyage) voyage.style.setProperty('--stage', land.color);
+
   var nextKm = null, nextName = null;
   ticks.forEach(function(w){
     var km = parseFloat(w.getAttribute('data-km'));
@@ -560,6 +584,26 @@ if ('serviceWorker' in navigator) {
   } else {
     if(nextEl) nextEl.textContent = 'The fire is reached — the Ring is unmade.';
     if(remEl)  remEl.textContent  = 'All 2,863 km are behind you.';
+  }
+
+  /* pace and projected arrival */
+  if(paceEl && voyage){
+    var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var start = new Date(voyage.getAttribute('data-start') + 'T00:00:00');
+    var today = new Date(); today.setHours(0,0,0,0);
+    var days  = Math.max(1, Math.round((today - start)/86400000) + 1);
+    var perDay = total / days;
+    var head = 'Day ' + days + ' on the road · still in ' + land.name + ' · ';
+    if(total <= 0){
+      paceEl.textContent = head + 'the first league is yet to be walked.';
+    } else if(total >= GOAL){
+      paceEl.innerHTML = '<b>' + fmt(perDay) + ' km/day</b> across ' + days + ' days. The road is walked.';
+    } else {
+      var daysLeft = Math.ceil((GOAL - total) / perDay);
+      var eta = new Date(today.getTime() + daysLeft*86400000);
+      var etaText = eta.getDate() + ' ' + MONTHS[eta.getMonth()] + ' ' + eta.getFullYear();
+      paceEl.innerHTML = head + '<b>' + fmt(perDay) + ' km/day</b>. At this pace you reach the fire around <b>' + etaText + '</b>.';
+    }
   }
 
   if(reduce){
