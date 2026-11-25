@@ -232,8 +232,8 @@ h2::after{content:"";position:absolute;bottom:0;left:25%;width:50%;height:2px;
   box-shadow:0 12px 26px rgba(0,0,0,.66);overflow:hidden;margin-top:32px}
 .map-img{display:block;width:100%;height:auto}
 .map-marker{position:absolute;
-  left:calc(2 * 0.59% + 23%);
-  top:calc(2 * 0.38% + 34%);
+  left:calc(3 * 0.59% + 23%);
+  top:calc(3 * 0.38% + 34%);
   transform:translate(-50%,-50%);width:16px;height:16px;background:var(--gold);border:2px solid #fff;border-radius:50%;
   box-shadow:0 0 10px var(--gold),0 0 22px var(--gold);z-index:10;animation:pulse 2s infinite;
   transition:left 1.7s cubic-bezier(.22,.61,.36,1),top 1.7s cubic-bezier(.22,.61,.36,1),box-shadow .4s ease}
@@ -330,7 +330,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
     <a href="#oaths">Oaths</a>
     <a href="#journal">Journal</a>
   </nav>
-  <span class="nav-chip" id="chip" title="Journey to Mount Doom">2%</span>
+  <span class="nav-chip" id="chip" title="Journey to Mount Doom">3%</span>
   <div class="scrollprog" id="scrollprog" aria-hidden="true"></div>
 </header>
 
@@ -346,13 +346,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
     <section class="voyage reveal" id="voyage" data-start="2026-11-17" aria-label="Journey progress">
       <div class="voyage-head">
         <span class="overline">The Journey to Mount Doom</span>
-        <span class="voyage-pct" id="pct">2%</span>
+        <span class="voyage-pct" id="pct">3%</span>
       </div>
-      <div class="voyage-figure"><span class="count">71.2</span><span class="voyage-den">/ 2,863 km</span></div>
+      <div class="voyage-figure"><span class="count">88.1</span><span class="voyage-den">/ 2,863 km</span></div>
 
       <div class="voyage-track" id="track" role="img" aria-label="Progress along the road from the Shire to Mount Doom">
         <div class="voyage-road" aria-hidden="true"></div>
-        <div class="voyage-reveal" id="reveal" style="width:2%">
+        <div class="voyage-reveal" id="reveal" style="width:3%">
           <div class="voyage-grad" id="grad"></div>
         </div>
         <div class="voyage-sheen" aria-hidden="true"></div>
@@ -388,7 +388,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
         <div class="card reveal">
           <div class="stat-label">Running Distance</div>
           <div class="card-icon"><img src="runner.svg" alt=""></div>
-          <div class="stat-number" data-stat="run-dist">2715.7 km</div>
+          <div class="stat-number" data-stat="run-dist">2722.0 km</div>
           <div class="stat-label">Leagues on Foot</div>
         </div>
         <div class="card reveal">
@@ -400,7 +400,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
         <div class="card reveal">
           <div class="stat-label">Running Time</div>
           <div class="card-icon"><img src="sand-timer.svg" alt=""></div>
-          <div class="stat-number" data-stat="run-time">277.7 h</div>
+          <div class="stat-number" data-stat="run-time">278.3 h</div>
           <div class="stat-label">Time on the Road</div>
         </div>
       </div>
@@ -410,19 +410,19 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
         <div class="card reveal">
           <div class="stat-label">Cycling Distance</div>
           <div class="card-icon"><img src="wheel.svg" alt=""></div>
-          <div class="stat-number" data-stat="ride-dist">2071.3 km</div>
+          <div class="stat-number" data-stat="ride-dist">2081.8 km</div>
           <div class="stat-label">Leagues on Wheels</div>
         </div>
         <div class="card reveal">
           <div class="stat-label">Cycling Ascents</div>
           <div class="card-icon"><img src="mountain.svg" alt=""></div>
-          <div class="stat-number" data-stat="ride-elev">16487 m</div>
+          <div class="stat-number" data-stat="ride-elev">16530 m</div>
           <div class="stat-label">Mountains Climbed</div>
         </div>
         <div class="card reveal">
           <div class="stat-label">Cycling Time</div>
           <div class="card-icon"><img src="sand-timer.svg" alt=""></div>
-          <div class="stat-number" data-stat="ride-time">84.1 h</div>
+          <div class="stat-number" data-stat="ride-time">84.5 h</div>
           <div class="stat-label">Time in the Saddle</div>
         </div>
       </div>
@@ -464,7 +464,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
       <div class="map-card reveal" id="mapcard">
         <img src="middleearth2.jpeg" class="map-img" alt="Map of Middle-earth showing the road from the Shire to Mordor">
         <div class="map-marker" id="marker"></div>
-        <div class="map-overlay">The Journey to Mount Doom: 71.2 / 2,863 km travelled</div>
+        <div class="map-overlay">The Journey to Mount Doom: 88.1 / 2,863 km travelled</div>
       </div>
     </section>
 
@@ -475,7 +475,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
         <div class="card reveal">
           <div class="stat-label">Weekly Run</div>
           <div class="card-icon"><img src="runner.svg" alt=""></div>
-          <div class="stat-number">5.0 km</div>
+          <div class="stat-number">11.3 km</div>
           <div class="stat-label">Leagues on Foot</div>
         </div>
         <div class="card reveal">
@@ -490,13 +490,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
         <div class="card reveal">
           <div class="stat-label">Weekly Ride</div>
           <div class="card-icon"><img src="wheel.svg" alt=""></div>
-          <div class="stat-number">0 km</div>
+          <div class="stat-number">10.5 km</div>
           <div class="stat-label">Leagues on Wheels</div>
         </div>
         <div class="card reveal">
           <div class="stat-label">Weekly Ride Ascent</div>
           <div class="card-icon"><img src="mountain.svg" alt=""></div>
-          <div class="stat-number">0 m</div>
+          <div class="stat-number">43 m</div>
           <div class="stat-label">Mountains Climbed</div>
         </div>
       </div>
@@ -506,20 +506,20 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
       <h2 class="reveal">~ The Monthly Oaths ~</h2>
       <div class="quest-grid">
         <div class="quest-card reveal">
-          <span class="quest-pct">73%</span>
+          <span class="quest-pct">82%</span>
           <div class="card-icon"><img src="scrolls.svg" alt=""></div>
           <h3>The Road to Rivendell</h3>
-          <p class="quest-sub">This moon: 51.4 / 70 leagues</p>
-          <div class="progress-track"><div class="progress-fill" style="width:73%;background:linear-gradient(90deg, #7a9e5a, #c9a23a);"></div></div>
-          <p class="quest-status">Past the halfway mark! You have 18.6 leagues remaining on this quest.</p>
+          <p class="quest-sub">This moon: 57.7 / 70 leagues</p>
+          <div class="progress-track"><div class="progress-fill" style="width:82%;background:linear-gradient(90deg, #7a9e5a, #c9a23a);"></div></div>
+          <p class="quest-status">The final stretch! Only 12.3 leagues left to conquer.</p>
         </div>
         <div class="quest-card reveal">
-          <span class="quest-pct">95%</span>
+          <span class="quest-pct">100%</span>
           <div class="card-icon"><img src="scrolls.svg" alt=""></div>
           <h3>The Ride to Rohan</h3>
-          <p class="quest-sub">This moon: 190.3 / 200 leagues</p>
-          <div class="progress-track"><div class="progress-fill" style="width:95%;background:linear-gradient(90deg, #7a9e5a, #c9a23a);"></div></div>
-          <p class="quest-status">The final stretch! Only 9.7 leagues left to conquer.</p>
+          <p class="quest-sub">This moon: 200.9 / 200 leagues</p>
+          <div class="progress-track"><div class="progress-fill" style="width:100%;background:linear-gradient(90deg, #d4af37, #f9e79f);"></div></div>
+          <p class="quest-status">Quest Complete! The realm is saved. ⚔️ You conquered 200.9 leagues!</p>
         </div>
       </div>
     </section>
@@ -527,13 +527,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-bright);outlin
     <section id="journal">
       <div class="log reveal">
         <h2>Recent Journal Entries</h2>
-        <p><strong>Nov 23:</strong> <em>Evening Run</em> — The road goes ever on and on. 5.0 leagues covered, with 38m of elevation conquered.</p>
-                <p><strong>Nov 22:</strong> <em>Zwift - Group Ride: Stage 1 - Zwift Power Play</em> — A great gallop across the plains: 31.3 leagues covered, scaling 222m of mountains.</p>
-                <p><strong>Nov 21:</strong> <em>Afternoon Run</em> — A fellowship of one, marching 6.1 leagues and conquering 64m of steep ascent.</p>
+        <p><strong>Nov 25:</strong> <em>Zwift - Temple Trek in Watopia</em> — A great gallop across the plains: 10.5 leagues covered, scaling 43m of mountains.</p>
+                <p><strong>Nov 25:</strong> <em>Zwift - Seaside Sprint Run in Watopia</em> — The road goes ever on and on. 6.3 leagues covered, with 0m of elevation conquered.</p>
+                <p><strong>Nov 23:</strong> <em>Evening Run</em> — A steady pace, a heavy breath, and 5.0 leagues travelled with 38m of mountains overcome.</p>
+                <p><strong>Nov 22:</strong> <em>Zwift - Group Ride: Stage 1 - Zwift Power Play</em> — Through the fields of Rohan and beyond: 31.3 leagues on two wheels, 222m of elevation gained.</p>
+                <p><strong>Nov 21:</strong> <em>Afternoon Run</em> — The eagles may fly, but you ran 6.1 leagues and climbed 64m on your own two feet!</p>
                 <p><strong>Nov 19:</strong> <em>Afternoon Ride</em> — The wind in your face and the road beneath you: 23.9 leagues ridden, 403m climbed.</p>
-                <p><strong>Nov 18:</strong> <em>Morning Run</em> — The eagles may fly, but you ran 5.0 leagues and climbed 41m on your own two feet!</p>
-                <p><strong>Nov 16:</strong> <em>Zwift - California Dreamin' in Watopia</em> — Like a rider of Rohan, you covered 19.2 leagues and climbed 103m of steep terrain.</p>
-                <p><strong>Nov 16:</strong> <em>Zwift - Crit Cross in Watopia</em> — The wheels turned and the miles flew by: 13.7 leagues travelled, 37m of ascent achieved.</p>
+                <p><strong>Nov 18:</strong> <em>Morning Run</em> — A swift stride through the wilds! 5.0 leagues travelled, scaling 41m of mountains.</p>
       </div>
     </section>
 
@@ -669,8 +669,8 @@ if ('serviceWorker' in navigator) {
   })();
 
   var GOAL = 2863;
-  var rawTotal = parseFloat('71.2');
-  var bakedPct = parseFloat('2');
+  var rawTotal = parseFloat('88.1');
+  var bakedPct = parseFloat('3');
   var total = isNaN(rawTotal) ? (isNaN(bakedPct) ? 0 : bakedPct/100*GOAL) : rawTotal;
   var pct = Math.max(0, Math.min(100, total/GOAL*100));
 
